@@ -37,4 +37,14 @@ public partial class SettingsPage : ContentPage
     {
         Navigation.PushAsync(this.outputPage);
     }
+
+    private void TapGestureRecognizer_OnTapped(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(this.page);
+    }
+    
+    private void TapGestureRecognizer2_OnTapped(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(this.outputPage);
+    }
 }

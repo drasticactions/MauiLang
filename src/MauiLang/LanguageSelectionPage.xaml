@@ -13,6 +13,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button HorizontalOptions="Center" Grid.Row="2" Margin="5" Text="Go Back" Clicked="Button_OnClicked" />
+        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="Go Back" Clicked="Button_OnClicked" />
     </Grid>
 </ContentPage>

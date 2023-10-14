@@ -8,6 +8,20 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="LightBackgroundColor">#f2f2f7</Color>
+            <Color x:Key="DarkBackgroundColor">#000000</Color>
+            <Color x:Key="MainLightBackgroundColor">#ffffff</Color>
+            <Color x:Key="MainDarkBackgroundColor">#1c1c1e</Color>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+            <Style x:Key="ButtonStyle"
+                   TargetType="Button">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MainDarkBackgroundColor}, Dark={StaticResource LightBackgroundColor}}" />
+                <Setter Property="CornerRadius"
+                        Value="5" />
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

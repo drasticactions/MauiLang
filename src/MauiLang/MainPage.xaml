@@ -7,23 +7,6 @@
              ios:Page.UseSafeArea="False"
              NavigationPage.HasNavigationBar="False"
              x:Class="MauiLang.MainPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="LightBackgroundColor">#f2f2f7</Color>
-            <Color x:Key="DarkBackgroundColor">#000000</Color>
-            <Color x:Key="MainLightBackgroundColor">#ffffff</Color>
-            <Color x:Key="MainDarkBackgroundColor">#1c1c1e</Color>
-            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
-            <Color x:Key="DarkPrimaryColor">#39393d</Color>
-            <Style x:Key="ButtonStyle"
-                   TargetType="Button">
-                <Setter Property="CornerRadius"
-                        Value="5" />
-                <Setter Property="BackgroundColor"
-                        Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <Grid BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
           RowDefinitions="*, Auto, *">
         <Grid Margin="5" Grid.RowDefinitions="Auto, *" RowSpacing="5">
