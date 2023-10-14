@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="Black"
+             Title="Translation"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="False"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MauiLang.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightBackgroundColor">#f2f2f7</Color>
+            <Color x:Key="DarkBackgroundColor">#000000</Color>
+            <Color x:Key="MainLightBackgroundColor">#ffffff</Color>
+            <Color x:Key="MainDarkBackgroundColor">#1c1c1e</Color>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+            <Style x:Key="ButtonStyle"
+                   TargetType="Button">
+                <Setter Property="CornerRadius"
+                        Value="5" />
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
+          RowDefinitions="*, Auto, *">
+        <Grid Margin="5" Grid.RowDefinitions="Auto, *" RowSpacing="5">
+            <Button Text="Settings" Clicked="SettingsButton_OnClicked"
+                    Style="{StaticResource ButtonStyle}"
+                    x:Name="SettingsButton"
+                    HorizontalOptions="End"/>
+            <Border Grid.Row="1" Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="5"/></Border.StrokeShape>
+                <Editor
+                    BackgroundColor="Transparent"
+                    Margin="5"
+                    Placeholder="Enter Text"
+                    x:Name="TopEditor"
+                    Text="{Binding InputText}"/>
+            </Border>     
+        </Grid>
+        <Grid ColumnSpacing="5" Grid.Row="1" ColumnDefinitions="*, Auto, *">
+            <Rectangle Grid.Column="0"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+            <Button 
+                Grid.Column="1"
+                Style="{StaticResource ButtonStyle}"
+                HorizontalOptions="Center"
+                x:Name="TranslateButton"
+                Command="{Binding TranslateCommand}" Text="↓" />
+            <Rectangle Grid.Column="2"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+        </Grid>
+        <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5" Grid.Row="2">
+            <Border Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="5"/></Border.StrokeShape>
+                <Editor
+                    BackgroundColor="Transparent"
+                    Grid.Row="1"
+                    Placeholder="Output text..."
+                    Text="{Binding OutputText}"
+                    x:Name="BottomEditor"/>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

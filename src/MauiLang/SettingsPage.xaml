@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Settings"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MauiLang.SettingsPage">
+    <ContentPage.Content>
+       <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
+           <Label HorizontalOptions="Center" Text="Settings"></Label>
+           <TableView Grid.Row="1">
+               <TableRoot>
+                   <TableSection Title="Authentication Tokens">
+                       <ViewCell>
+                           <Grid Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto">
+                               <Label HorizontalOptions="Start" Text="OpenAI" />
+                               <Entry HorizontalOptions="Fill" Grid.Row="1" Text="{Binding OpenAIToken}" IsPassword="True"/>
+                           </Grid>
+                       </ViewCell>
+                   </TableSection>
+                   <TableSection Title="Language">
+                       <ViewCell Tapped="Cell_OnTapped">
+                           <Grid Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto, Auto">
+                               <Label HorizontalOptions="Start" FontSize="Caption" Text="Translation Target:" />
+                               <Label Grid.Row="1" Text="{Binding TargetLanguage.Language}"/>
+                           </Grid>
+                       </ViewCell>
+                       <ViewCell Tapped="Cell2_OnTapped">
+                           <Grid Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto, Auto">
+                               <Label HorizontalOptions="Start" FontSize="Caption" Text="Output Response:" />
+                               <Label Grid.Row="1" Text="{Binding OutputResponseLanguage.Language}"/>
+                           </Grid>
+                       </ViewCell>
+                   </TableSection>
+               </TableRoot>
+           </TableView>
+           <Button Margin="5" Grid.Row="2" Text="Go Back" Clicked="Button_OnClicked" />
+       </Grid>
+    </ContentPage.Content>
+</ContentPage>
