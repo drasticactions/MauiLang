@@ -18,10 +18,21 @@ public static class MauiProgram
         });
 #endif
 		
-		#if IOS
+		#if IOS || MACCATALYST
 		Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("EntryChange", (handler, view) =>
 		{
 			handler.PlatformView.InputAccessoryView = null;
+			var centeredParagraphStyle = new UIKit.NSMutableParagraphStyle();
+			centeredParagraphStyle.Alignment = UIKit.UITextAlignment.Center;
+			var attributedPlaceholder = new Foundation.NSAttributedString(
+				view.Placeholder,
+				new UIKit.UIStringAttributes
+				{
+					ParagraphStyle = centeredParagraphStyle
+				}
+			);
+			
+			handler.PlatformView.AttributedPlaceholderText = attributedPlaceholder;
 		});
 		#endif
 
