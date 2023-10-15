@@ -35,15 +35,25 @@ public class OpenAIService
 
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
         var responseL = CultureInfo.GetCultureInfo(responseLang);
-        chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can, explain the decisions you made in creating your translation in {responseL.EnglishName}. Match the tone of the given sentence. Your output is JSON. There will be two field, \"translation\" which is where you will write your translation, and \"explain\" where you will write your explanation for how you translated the text");
+        chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can, explain the decisions you made in creating your translation in {responseL.EnglishName}. Match the tone of the given sentence. Your output is JSON. There will be two field, \"translation\" which is where you will write your translation, and \"explain\" where you will write your explanation for how you translated the text in {responseL.EnglishName}.");
         var testObj = new TranslateObj() { translateTo = langOutput, respondIn = responseLang, inputText = text };
         var serialized = System.Text.Json.JsonSerializer.Serialize(testObj, new JsonSerializerOptions() { WriteIndented = true});
         chat.AppendUserInput(text);
         var result = await chat.GetResponseFromChatbotAsync();
-        var json = JsonSerializer.Deserialize<TranslationResult>(result);
-        json.inputText = text;
-        json.translateTo = langOutput;
-        json.respondIn = responseLang;
+        var json = new TranslationResult(); 
+        try
+        {
+            json = JsonSerializer.Deserialize<TranslationResult>(result);
+            json.inputText = text;
+            json.translateTo = langOutput;
+            json.respondIn = responseLang;
+        }
+        catch (Exception e)
+        {
+            // Catch into logger.
+            json.explain = e.Message;
+            json.translation = result;
+        }
         return json;
     }
 
