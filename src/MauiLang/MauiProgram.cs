@@ -2,6 +2,7 @@
 using MauiLang.Services;
 using MauiLang.ViewModels;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
 
 namespace MauiLang;
 
@@ -78,8 +79,11 @@ public static class MauiProgram
 			.AddSingleton<Settings>(settings)
 			.AddSingleton<SettingsViewModel>()
 			.AddSingleton<SettingsPage>()
+			.AddSingleton<LanguageSelectionPage>()
+			.AddSingleton<TranslationViewModel>()
 			.AddSingleton<ModalNavigationSettingsPage>()
 			.AddSingleton<OutputResponseLanguageViewModel>()
+			.AddSingleton<ModalTranslationSettingsPage>()
 			.AddSingleton<TargetLanguageViewModel>();
 		builder
 			.UseMauiApp<App>()

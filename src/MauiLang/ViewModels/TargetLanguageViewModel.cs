@@ -5,12 +5,12 @@ namespace MauiLang.ViewModels;
 
 public class TargetLanguageViewModel : MauiLangViewModel
 {
-    private SettingsViewModel vm;
+    private TranslationViewModel vm;
     
     public TargetLanguageViewModel(IServiceProvider services)
         : base(services)
     {
-        this.vm = services.GetRequiredService<SettingsViewModel>();
+        this.vm = services.GetRequiredService<TranslationViewModel>();
         this.Languages = MauiLangLanguage.GenerateMauiLangLangauages();
         this.SelectLanguageCommand =
             new AsyncCommand<MauiLangLanguage>(this.SelectLanguageAsync, null, this.ErrorHandler);

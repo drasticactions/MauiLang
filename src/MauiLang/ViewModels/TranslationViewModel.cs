@@ -1,4 +1,5 @@
 using Drastic.Tools;
+using MauiLang.Models;
 using MauiLang.Services;
 using MauiLang.Translations;
 
@@ -8,17 +9,30 @@ public class TranslationViewModel : MauiLangViewModel
 {
     private TranslationResult? result;
     private string inputText = string.Empty;
-
+    private MauiLangLanguage targetLanguage;
+    
     public TranslationViewModel(IServiceProvider services)
         : base(services)
     {
-        this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
-        this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => this.Result is not null, this.Dispatcher, this.ErrorHandler);
+        this.targetLanguage = this.Settings.TargetLanguage ?? new MauiLangLanguage();
+        this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
+        this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this.ErrorHandler);
     }
     
     public AsyncCommand TranslateCommand { get; }
 
     public AsyncCommand OpenExtraCommand { get; }
+    
+    public MauiLangLanguage TargetLanguage
+    {
+        get => this.targetLanguage;
+        set
+        {
+            this.SetProperty(ref this.targetLanguage, value);
+            this.Settings.TargetLanguage = value;
+            this.Database.SetSettings(this.Settings);
+        }
+    }
     
     public string InputText
     {
@@ -50,8 +64,12 @@ public class TranslationViewModel : MauiLangViewModel
         if (string.IsNullOrWhiteSpace(this.InputText))
             return;
 
+        this.Result = null;
+        this.IsBusy = true;
+        this.RaiseCanExecuteChanged();
         this.Result = await this.OpenAI.GenerateTextAsync(this.InputText);
-       // this.OutputText = result.translation;
+        this.IsBusy = false;
+        this.RaiseCanExecuteChanged();
     }
 
     public async Task OpenExtraAsync()

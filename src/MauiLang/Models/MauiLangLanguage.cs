@@ -326,7 +326,7 @@ public class MauiLangLanguage
             this.IsAutomatic = true;
             this.CultureInfo = CultureInfo.CurrentCulture;
             this.LanguageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            this.Language = $"{this.CultureInfo.NativeName} (Automatic)";
+            this.Language = $"{this.CultureInfo.NativeName}";
         }
     }
 
@@ -335,7 +335,7 @@ public class MauiLangLanguage
         this.IsAutomatic = true;
         this.CultureInfo = CultureInfo.CurrentCulture;
         this.LanguageCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-        this.Language = $"{this.CultureInfo.NativeName} (Automatic)";
+        this.Language = $"{this.CultureInfo.NativeName}";
     }
 
     public string Language { get; set; }

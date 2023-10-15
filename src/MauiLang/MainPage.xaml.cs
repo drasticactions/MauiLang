@@ -20,7 +20,7 @@ public partial class MainPage : ContentPage
 		this.BottomEditor.FontAttributes = FontAttributes.Bold;
 #endif
 
-        this.BindingContext = this.vm = new TranslationViewModel(provider);
+        this.BindingContext = this.vm = provider.GetRequiredService<TranslationViewModel>();
     }
 
     protected override void OnHandlerChanged()
@@ -44,6 +44,11 @@ public partial class MainPage : ContentPage
     private void SettingsButton_OnClicked(object sender, EventArgs e)
     {
         Navigation.PushModalAsync(this.provider.GetRequiredService<ModalNavigationSettingsPage>());
+    }
+
+    private void TapGestureRecognizer_OnTapped(object sender, TappedEventArgs e)
+    {
+	    this.Navigation.PushModalAsync(this.provider.GetRequiredService<ModalTranslationSettingsPage>());
     }
 }
 

@@ -11,3 +11,12 @@ public class ModalNavigationSettingsPage : Microsoft.Maui.Controls.NavigationPag
         On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
     }
 }
+
+public class ModalTranslationSettingsPage : Microsoft.Maui.Controls.NavigationPage
+{
+    public ModalTranslationSettingsPage(IServiceProvider provider)
+        : base(provider.GetRequiredService<LanguageSelectionPage>())
+    {
+        On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
+    }
+}

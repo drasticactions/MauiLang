@@ -7,7 +7,7 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
              x:Class="MauiLang.OutputResponseLanguagePage">
     <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
-        <Label HorizontalOptions="Center" Text="{x:Static common:Common.LanguagesLabel}"></Label>
+        <Label HorizontalOptions="Center" Margin="5" Text="{x:Static common:Common.LanguagesLabel}"></Label>
         <ListView SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>

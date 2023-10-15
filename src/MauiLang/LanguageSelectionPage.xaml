@@ -4,17 +4,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              xmlns:common="clr-namespace:MauiLang.Translations"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.ModalPresentationStyle="FormSheet"
              BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
              x:Class="MauiLang.LanguageSelectionPage">
     <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
-        <Label HorizontalOptions="Center" Text="{x:Static common:Common.LanguagesLabel}"></Label>
-        <ListView SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
+        <Label HorizontalOptions="Center" Margin="5" Text="{x:Static common:Common.LanguagesLabel}"></Label>
+        <ListView x:Name="ListView" SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Language}"></TextCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="{x:Static common:Common.GoBackLabel}" Clicked="Button_OnClicked" />
+        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="{x:Static common:Common.CloseLabel}" Clicked="Button_OnClicked" />
     </Grid>
 </ContentPage>
