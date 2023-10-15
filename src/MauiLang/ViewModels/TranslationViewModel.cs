@@ -56,6 +56,6 @@ public class TranslationViewModel : MauiLangViewModel
 
     public async Task OpenExtraAsync()
     {
-       Application.Current?.MainPage.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? "No explanation found.", "Ok");
+       Application.Current?.MainPage.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? Common.NoExplainLabel, "Ok");
     }
 }
