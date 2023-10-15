@@ -1,18 +1,24 @@
 using Drastic.Tools;
+using MauiLang.Services;
+using MauiLang.Translations;
 
 namespace MauiLang.ViewModels;
 
 public class TranslationViewModel : MauiLangViewModel
 {
+    private TranslationResult? result;
     private string inputText = string.Empty;
-    private string outputText = string.Empty;
+
     public TranslationViewModel(IServiceProvider services)
         : base(services)
     {
         this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
+        this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => this.Result is not null, this.Dispatcher, this.ErrorHandler);
     }
     
     public AsyncCommand TranslateCommand { get; }
+
+    public AsyncCommand OpenExtraCommand { get; }
     
     public string InputText
     {
@@ -23,17 +29,20 @@ public class TranslationViewModel : MauiLangViewModel
             this.RaiseCanExecuteChanged();
         }
     }
-    
-    public string OutputText
-    {
-        get => this.outputText;
-        set => this.SetProperty(ref this.outputText, value);
+
+    public TranslationResult? Result {
+        get => this.result;
+        set {
+            this.SetProperty(ref this.result, value);
+            this.RaiseCanExecuteChanged();
+        }
     }
 
     public override void RaiseCanExecuteChanged()
     {
         base.RaiseCanExecuteChanged();
         this.TranslateCommand.RaiseCanExecuteChanged();
+        this.OpenExtraCommand.RaiseCanExecuteChanged();
     }
 
     public async Task TranslateAsync()
@@ -41,7 +50,12 @@ public class TranslationViewModel : MauiLangViewModel
         if (string.IsNullOrWhiteSpace(this.InputText))
             return;
 
-        var result = await this.OpenAI.GenerateTextAsync(this.InputText);
-        this.OutputText = result.translation;
+        this.Result = await this.OpenAI.GenerateTextAsync(this.InputText);
+       // this.OutputText = result.translation;
+    }
+
+    public async Task OpenExtraAsync()
+    {
+       Application.Current?.MainPage.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? "No explanation found.", "Ok");
     }
 }

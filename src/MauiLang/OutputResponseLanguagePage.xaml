@@ -3,9 +3,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             xmlns:common="clr-namespace:MauiLang.Translations"
+             BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
              x:Class="MauiLang.OutputResponseLanguagePage">
     <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
-        <Label HorizontalOptions="Center" Text="Language"></Label>
+        <Label HorizontalOptions="Center" Text="{x:Static common:Common.LanguagesLabel}"></Label>
         <ListView SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -13,6 +15,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="Go Back" Clicked="Button_OnClicked" />
+        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="{x:Static common:Common.GoBackLabel}" Clicked="Button_OnClicked" />
     </Grid>
 </ContentPage>

@@ -14,7 +14,7 @@ public class MauiNavigationPage : NavigationPage
 {
 	public MauiNavigationPage(Page page) : base(page)
 	{
-		
+		this.Title = "MauiLang";
 	}
 
 	protected override void OnHandlerChanged()

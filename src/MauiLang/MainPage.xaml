@@ -1,25 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="Black"
              Title="Translation"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
              NavigationPage.HasNavigationBar="False"
+             xmlns:common="clr-namespace:MauiLang.Translations"
              x:Class="MauiLang.MainPage">
-    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource MainLightBackgroundColor}, Dark={StaticResource MainDarkBackgroundColor}}"
+    <Grid x:Name="MainGrid"
           RowDefinitions="*, Auto, *">
         <Grid Margin="5" Grid.RowDefinitions="Auto, *" RowSpacing="5">
-            <Button Text="Settings" Clicked="SettingsButton_OnClicked"
-                    Style="{StaticResource ButtonStyle}"
-                    x:Name="SettingsButton"
-                    HorizontalOptions="End"/>
+            <Grid x:Name="SettingsRow" ColumnDefinitions="*, Auto">
+                <Label FontAttributes="Bold" VerticalOptions="Center" Text="{x:Static common:Common.AppName}"/>
+                <Button Text="{x:Static common:Common.SettingsLabel}" 
+                        Grid.Column="1"
+                        Clicked="SettingsButton_OnClicked"
+        Style="{StaticResource ButtonStyle}"
+        x:Name="SettingsButton"
+        HorizontalOptions="End"/>
+            </Grid>
             <Border Grid.Row="1" Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
                 <Border.StrokeShape><RoundRectangle CornerRadius="5"/></Border.StrokeShape>
                 <Editor
                     BackgroundColor="Transparent"
-                    Margin="5"
-                    Placeholder="Enter Text"
+                    Placeholder="{x:Static common:Common.EnterTextLabel}"
                     x:Name="TopEditor"
                     Text="{Binding InputText}"/>
             </Border>     
@@ -37,12 +42,21 @@
         <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5" Grid.Row="2">
             <Border Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
                 <Border.StrokeShape><RoundRectangle CornerRadius="5"/></Border.StrokeShape>
-                <Editor
-                    BackgroundColor="Transparent"
-                    Grid.Row="1"
-                    Placeholder="Output text..."
-                    Text="{Binding OutputText}"
-                    x:Name="BottomEditor"/>
+                <Grid>
+                    <Editor
+                        BackgroundColor="Transparent"
+                        ZIndex="0"
+                        Placeholder="{x:Static common:Common.OutputTextLabel}"
+                        Text="{Binding Result.translation}"
+                        x:Name="BottomEditor"/>
+                    <Button Margin="5"
+                            Command="{Binding OpenExtraCommand}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Text="{x:Static common:Common.ExplainLabel}" 
+                            ZIndex="1"
+                           />
+                </Grid>
             </Border>
         </Grid>
     </Grid>

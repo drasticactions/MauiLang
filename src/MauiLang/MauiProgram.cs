@@ -33,8 +33,23 @@ public static class MauiProgram
 			}
 		});
 #endif
-		
-		#if IOS || MACCATALYST
+
+#if WINDOWS
+		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping("WindowChange", (handler, view) =>
+		{
+			handler.PlatformView.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
+			handler.PlatformView.Title = "MauiLang";
+			handler.PlatformView.AppWindow.Title = "MauiLang";
+			handler.PlatformView.AppWindow.TitleBar.ButtonInactiveBackgroundColor = Microsoft.UI.Colors.Transparent;
+            handler.PlatformView.AppWindow.TitleBar.BackgroundColor = Microsoft.UI.Colors.Transparent;
+			handler.PlatformView.AppWindow.TitleBar.ButtonBackgroundColor = Microsoft.UI.Colors.Transparent;
+			handler.PlatformView.AppWindow.TitleBar.ButtonInactiveBackgroundColor = Microsoft.UI.Colors.Transparent;
+			handler.PlatformView.AppWindow.TitleBar.ButtonForegroundColor = Microsoft.UI.Colors.Transparent;
+            handler.PlatformView.AppWindow.TitleBar.ButtonInactiveForegroundColor = Microsoft.UI.Colors.Transparent;
+		});
+#endif
+
+#if IOS || MACCATALYST
 		Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("EntryChange", (handler, view) =>
 		{
 			handler.PlatformView.InputAccessoryView = null;
@@ -50,9 +65,9 @@ public static class MauiProgram
 			
 			handler.PlatformView.AttributedPlaceholderText = attributedPlaceholder;
 		});
-		#endif
+#endif
 
-		var databaseService = new DatabaseService();
+        var databaseService = new DatabaseService();
 		var settings = databaseService.GetSettings();
 		var builder = MauiApp.CreateBuilder();
 		builder.Services
