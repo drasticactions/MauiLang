@@ -25,7 +25,7 @@ public partial class SettingsPage : ContentPage
     
     private void Button_OnClicked(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Navigation.PopModalAsync();
     }
 
     private void Cell_OnTapped(object sender, EventArgs e)

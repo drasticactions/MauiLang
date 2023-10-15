@@ -16,6 +16,22 @@ public static class MauiProgram
             handler.PlatformView.Layer.CornerRadius = 5;
             handler.PlatformView.ClipsToBounds = true;
         });
+		
+		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping("WindowChange", (handler, view) =>
+		{
+			// handler.PlatformView.PreferredDisplayMode = UIKit.UISplitViewControllerDisplayMode.AllVisible;
+			if (handler.PlatformView?.WindowScene?.Titlebar != null && view is Window win)
+			{
+				//handler.PlatformView.WindowScene.Titlebar.TitleVisibility = UIKit.UITitlebarTitleVisibility.Hidden;
+				var toolbar = new AppKit.NSToolbar();
+				toolbar.Delegate = new ToolbarDelegate(win);
+				toolbar.DisplayMode = AppKit.NSToolbarDisplayMode.Icon;
+				
+				handler.PlatformView.WindowScene.Titlebar.Toolbar = toolbar;
+				handler.PlatformView.WindowScene.Titlebar.ToolbarStyle = UIKit.UITitlebarToolbarStyle.Automatic;
+				handler.PlatformView.WindowScene.Titlebar.Toolbar.Visible = true;
+			}
+		});
 #endif
 		
 		#if IOS || MACCATALYST
@@ -46,6 +62,8 @@ public static class MauiProgram
 			.AddSingleton<DatabaseService>(databaseService)
 			.AddSingleton<Settings>(settings)
 			.AddSingleton<SettingsViewModel>()
+			.AddSingleton<SettingsPage>()
+			.AddSingleton<ModalNavigationSettingsPage>()
 			.AddSingleton<OutputResponseLanguageViewModel>()
 			.AddSingleton<TargetLanguageViewModel>();
 		builder

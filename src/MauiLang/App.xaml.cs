@@ -6,6 +6,19 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new NavigationPage(new MainPage(provider));
+		MainPage = new MauiNavigationPage(new MainPage(provider));
+	}
+}
+
+public class MauiNavigationPage : NavigationPage
+{
+	public MauiNavigationPage(Page page) : base(page)
+	{
+		
+	}
+
+	protected override void OnHandlerChanged()
+	{
+		base.OnHandlerChanged();
 	}
 }
