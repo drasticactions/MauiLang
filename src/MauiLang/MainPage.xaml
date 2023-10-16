@@ -44,7 +44,7 @@
                 <Border.StrokeShape><RoundRectangle CornerRadius="5"/></Border.StrokeShape>
                 <Grid>
                     <Grid IsVisible="{Binding IsBusy}" ZIndex="1" Opacity=".9" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
-                        <ActivityIndicator WidthRequest="50" Height="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <ActivityIndicator WidthRequest="50" HeightRequest="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
                     </Grid>
                     <Grid ZIndex="0" RowDefinitions="Auto, *">
                         <Label Margin="5" FontSize="15" x:Name="LanguageSelectionLabel" FontAttributes="Bold" Text="{Binding TargetLanguage.Language}">
