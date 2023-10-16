@@ -35,26 +35,33 @@ public class OpenAIService
 
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
         var responseL = CultureInfo.GetCultureInfo(responseLang);
-        chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can, explain the decisions you made in creating your translation in {responseL.EnglishName}. Match the tone of the given sentence. Your output is JSON. There will be two field, \"translation\" which is where you will write your translation, and \"explain\" where you will write your explanation for how you translated the text in {responseL.EnglishName}.");
-        var testObj = new TranslateObj() { translateTo = langOutput, respondIn = responseLang, inputText = text };
-        var serialized = System.Text.Json.JsonSerializer.Serialize(testObj, new JsonSerializerOptions() { WriteIndented = true});
+        chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can. Match the tone of the given sentence.");
         chat.AppendUserInput(text);
         var result = await chat.GetResponseFromChatbotAsync();
-        var json = new TranslationResult(); 
-        try
-        {
-            json = JsonSerializer.Deserialize<TranslationResult>(result);
-            json.inputText = text;
-            json.translateTo = langOutput;
-            json.respondIn = responseLang;
-        }
-        catch (Exception e)
-        {
-            // Catch into logger.
-            json.explain = e.Message;
-            json.translation = result;
-        }
+        var json = new TranslationResult() { translation = result, respondIn = responseLang, translateTo = langOutput, inputText = text}; 
         return json;
+    }
+
+    public async Task<TranslationResult> GenerateExplainAsync(TranslationResult result)
+    {
+        if (string.IsNullOrEmpty(settings.OpenAIToken))
+        {
+            throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
+        }
+        
+        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(settings.OpenAIToken));
+        var chat = api.Chat.CreateConversation();
+
+        var cultureInfo = CultureInfo.GetCultureInfo(result.translateTo);
+        var responseL = CultureInfo.GetCultureInfo(result.respondIn);
+        chat.AppendUserInput($"You are a translator. You have translated \"{result.inputText}\" into {cultureInfo.EnglishName}: \"{result.translation}\". Break down the specifics of how you created your translation in detail, going over the specific grammar choices you used. Write your explanation in {responseL.EnglishName}.");
+        var output = await chat.GetResponseFromChatbotAsync();
+        result.explain = output;
+        if (string.IsNullOrEmpty(result.explain))
+        {
+            result.explain = Translations.Common.NoExplainLabel;
+        }
+        return result;
     }
 
     private class TranslateObj

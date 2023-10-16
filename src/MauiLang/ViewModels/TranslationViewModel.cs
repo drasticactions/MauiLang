@@ -74,6 +74,14 @@ public class TranslationViewModel : MauiLangViewModel
 
     public async Task OpenExtraAsync()
     {
-       Application.Current?.MainPage.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? Common.NoExplainLabel, "Ok");
+        if (this.Result is null)
+            return;
+
+        this.IsBusy = true;
+        this.RaiseCanExecuteChanged();
+        this.Result = await this.OpenAI.GenerateExplainAsync(this.Result);
+        this.IsBusy = false;
+        this.RaiseCanExecuteChanged(); 
+        await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? Common.NoExplainLabel, "Ok");
     }
 }
