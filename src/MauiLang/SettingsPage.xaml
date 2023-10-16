@@ -9,16 +9,16 @@
              x:Class="MauiLang.SettingsPage">
     <ContentPage.Content>
        <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
-            <Label HorizontalOptions="Center" Text="{x:Static common:Common.SettingsLabel}"></Label>
+            <Label Margin="5" FontAttributes="Bold" FontSize="15" HorizontalOptions="Center" Text="{x:Static common:Common.SettingsLabel}"></Label>
             <ScrollView Grid.Row="1">
                 <Grid RowDefinitions="Auto, Auto">
                     <Grid Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto">
-                        <Label HorizontalOptions="Start" Text="OpenAI Token: " />
+                        <Label HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" Text="OpenAI Token: " />
                         <Entry HorizontalOptions="Fill" Grid.Row="1" Text="{Binding OpenAIToken}" IsPassword="True"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto">
-                        <Label HorizontalOptions="Start" FontSize="Caption" Text="{x:Static common:Common.OutputResponseLabel}" />
-                        <Label Grid.Row="1" Text="{Binding OutputResponseLanguage.Language}">
+                        <Label HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" Text="{x:Static common:Common.OutputResponseLabel}" />
+                        <Label Grid.Row="1" FontSize="12" Text="{Binding OutputResponseLanguage.Language}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer2_OnTapped"></TapGestureRecognizer>
                             </Label.GestureRecognizers>
