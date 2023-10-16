@@ -11,7 +11,12 @@
         <ListView SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Language}"></TextCell>
+                    <ViewCell>
+                        <Label FontSize="16"
+                               Margin="15"
+                               VerticalOptions="Center"
+                               Text="{Binding Language}"></Label>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
