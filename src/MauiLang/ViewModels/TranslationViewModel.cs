@@ -1,3 +1,4 @@
+using Drastic.Services;
 using Drastic.Tools;
 using MauiLang.Models;
 using MauiLang.Services;
@@ -5,7 +6,7 @@ using MauiLang.Translations;
 
 namespace MauiLang.ViewModels;
 
-public class TranslationViewModel : MauiLangViewModel
+public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
 {
     private TranslationResult? result;
     private string inputText = string.Empty;
@@ -15,8 +16,8 @@ public class TranslationViewModel : MauiLangViewModel
         : base(services)
     {
         this.targetLanguage = this.Settings.TargetLanguage ?? new MauiLangLanguage();
-        this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
-        this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this.ErrorHandler);
+        this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this);
+        this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this);
     }
     
     public AsyncCommand TranslateCommand { get; }
@@ -83,5 +84,13 @@ public class TranslationViewModel : MauiLangViewModel
         this.IsBusy = false;
         this.RaiseCanExecuteChanged(); 
         await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? Common.NoExplainLabel, "Ok");
+    }
+
+    public void HandleError(Exception ex)
+    {
+        this.IsBusy = false;
+        this.RaiseCanExecuteChanged();
+        this.Result = null;
+        Application.Current?.MainPage?.DisplayAlert("Error", ex.Message, "Ok");
     }
 }
