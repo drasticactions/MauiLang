@@ -1,8 +1,15 @@
-﻿using Android.App;
+﻿// <copyright file="MainApplication.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using Android.App;
 using Android.Runtime;
 
 namespace MauiLang;
 
+/// <summary>
+/// Main Application.
+/// </summary>
 [Application]
 public class MainApplication : MauiApplication
 {

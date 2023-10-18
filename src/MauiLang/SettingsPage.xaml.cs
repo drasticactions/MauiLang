@@ -18,6 +18,10 @@ public partial class SettingsPage : ContentPage
     private LanguageSelectionPage page;
     private OutputResponseLanguagePage outputPage;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsPage"/> class.
+    /// </summary>
+    /// <param name="provider">Provider.</param>
     public SettingsPage(IServiceProvider provider)
     {
         this.InitializeComponent();

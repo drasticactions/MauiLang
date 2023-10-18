@@ -12,10 +12,17 @@ using MauiLang.ViewModels;
 
 namespace MauiLang;
 
+/// <summary>
+/// Output Response Language Page.
+/// </summary>
 public partial class OutputResponseLanguagePage : ContentPage
 {
     private OutputResponseLanguageViewModel vm;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OutputResponseLanguagePage"/> class.
+    /// </summary>
+    /// <param name="provider">Provider.</param>
     public OutputResponseLanguagePage(IServiceProvider provider)
     {
         this.InitializeComponent();

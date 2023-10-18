@@ -4,19 +4,32 @@
 
 namespace MauiLang;
 
+/// <summary>
+/// Maui App.
+/// </summary>
 public partial class App : Application
 {
-	private IServiceProvider provider;
+    private IServiceProvider provider;
 
-	public App(IServiceProvider provider)
-	{
-		this.InitializeComponent();
+    /// <summary>
+    /// Initializes a new instance of the <see cref="App"/> class.
+    /// </summary>
+    /// <param name="provider">Provider.</param>
+    public App(IServiceProvider provider)
+    {
+        this.InitializeComponent();
 
-		this.provider = provider;
-	}
+        this.provider = provider;
+    }
 
-	protected override Window CreateWindow(IActivationState activationState)
-	{
-		return new Window(new MauiNavigationPage(new MainPage(this.provider)));
-	}
+    /// <inheritdoc/>
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        if (activationState is null)
+        {
+            throw new ArgumentNullException(nameof(activationState));
+        }
+
+        return new Window(new MauiNavigationPage(new MainPage(this.provider)));
+    }
 }

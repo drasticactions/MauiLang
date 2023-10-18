@@ -1,17 +1,22 @@
+// <copyright file="ToolbarDelegate.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using AppKit;
 using Foundation;
 using UIKit;
 
 namespace MauiLang;
 
-public class ToolbarDelegate : NSToolbarDelegate
+/// <summary>
+/// Toolbar Delegate.
+/// </summary>
+public class ToolbarDelegate(Window window) : NSToolbarDelegate
 {
     private const string Settings = "Settings";
-    private Window window;
-    public ToolbarDelegate(Window window)
-    {
-        this.window = window;
-    }
+    private Window window = window;
+
+    /// <inheritdoc/>
     public override NSToolbarItem WillInsertItem(NSToolbar toolbar, string itemIdentifier, bool willBeInserted)
     {
         NSToolbarItem toolbarItem = new NSToolbarItem(itemIdentifier);
@@ -32,16 +37,16 @@ public class ToolbarDelegate : NSToolbarDelegate
     {
         return new string[]
         {
-            Settings
+            Settings,
         };
     }
 
-
+    /// <inheritdoc/>
     public override string[] DefaultItemIdentifiers(NSToolbar toolbar)
     {
         return new string[]
         {
-            Settings
+            Settings,
         };
     }
 
@@ -52,20 +57,11 @@ public class ToolbarDelegate : NSToolbarDelegate
         if (settings != null && this.window?.Page?.Navigation != null)
         {
             await this.window.Page.Navigation.PushModalAsync(settings);
-            
+
             // Control the size of the resulting modal.
             // MAUI wraps modals in a ControlModalWrapper class,
             // setting the size of its PrefferedContentSize property will control the size of the modal.
             // but you can't do it until it's already created.
-
-            //var test = this.GetModalWrapper(settings);
-            //test.PreferredContentSize = new CoreGraphics.CGSize(300, 400);
         }
-    }
-
-    internal UIViewController GetModalWrapper(Page modalPage)
-	{
-			var pageVC = (modalPage.Handler as IPlatformViewHandler).ViewController;
-			return (UIViewController)pageVC.ParentViewController;
     }
 }

@@ -4,15 +4,33 @@
 
 namespace MauiLang.Services;
 
+/// <summary>
+/// Translation Result.
+/// </summary>
 public class TranslationResult
 {
-    public string Translation { get; set; }
+    /// <summary>
+    /// Gets or sets the translation.
+    /// </summary>
+    public string? Translation { get; set; }
 
-    public string Explain { get; set; }
+    /// <summary>
+    /// Gets or sets the explain.
+    /// </summary>
+    public string? Explain { get; set; }
 
-    public string InputText { get; set; }
+    /// <summary>
+    /// Gets or sets the input text.
+    /// </summary>
+    public string? InputText { get; set; }
 
-    public string TranslateTo { get; set; }
+    /// <summary>
+    /// Gets or sets the translate from.
+    /// </summary>
+    public string? TranslateTo { get; set; }
 
-    public string RespondIn { get; set; }
+    /// <summary>
+    /// Gets or sets the translate to.
+    /// </summary>
+    public string? RespondIn { get; set; }
 }

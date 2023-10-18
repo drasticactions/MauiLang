@@ -7,8 +7,15 @@ using MauiLang.Services;
 
 namespace MauiLang.ViewModels;
 
+/// <summary>
+/// MauiLang View Model.
+/// </summary>
 public class MauiLangViewModel : BaseViewModel
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MauiLangViewModel"/> class.
+    /// </summary>
+    /// <param name="services">The services.</param>
     public MauiLangViewModel(IServiceProvider services)
         : base(services)
     {
@@ -17,9 +24,18 @@ public class MauiLangViewModel : BaseViewModel
         this.Settings = services.GetRequiredService<Settings>();
     }
 
+    /// <summary>
+    /// Gets the database service.
+    /// </summary>
     public DatabaseService Database { get; }
 
+    /// <summary>
+    /// Gets the OpenAI Service.
+    /// </summary>
     public OpenAIService OpenAI { get; }
 
+    /// <summary>
+    /// Gets the settings.
+    /// </summary>
     public Settings Settings { get; }
 }

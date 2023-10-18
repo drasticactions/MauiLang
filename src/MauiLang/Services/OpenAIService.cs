@@ -14,26 +14,35 @@ namespace MauiLang.Services;
 /// </summary>
 public class OpenAIService
 {
-    private readonly Settings _settings;
-    private IErrorHandlerService _error;
+    private readonly Settings settings;
+    private readonly IErrorHandlerService error;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OpenAIService"/> class.
+    /// </summary>
+    /// <param name="service">Service.</param>
     public OpenAIService(IServiceProvider service)
     {
-        this._settings = service.GetRequiredService<Settings>();
-        this._error = service.GetRequiredService<IErrorHandlerService>();
+        this.settings = service.GetRequiredService<Settings>();
+        this.error = service.GetRequiredService<IErrorHandlerService>();
     }
 
+    /// <summary>
+    /// Generates a text translation.
+    /// </summary>
+    /// <param name="text">Text to translate.</param>
+    /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
     public async Task<TranslationResult> GenerateTextAsync(string text)
     {
-        if (string.IsNullOrEmpty(this._settings.OpenAIToken))
+        if (string.IsNullOrEmpty(this.settings.OpenAIToken))
         {
             throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
         }
 
-        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this._settings.OpenAIToken));
+        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
-        var language = this._settings.TargetLanguage ?? new MauiLangLanguage();
-        var responseLanguage = this._settings.OutputResponseLanguage ?? new MauiLangLanguage();
+        var language = this.settings.TargetLanguage ?? new MauiLangLanguage();
+        var responseLanguage = this.settings.OutputResponseLanguage ?? new MauiLangLanguage();
         var langOutput = language.LanguageCode;
         var responseLang = responseLanguage.LanguageCode;
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
@@ -44,14 +53,19 @@ public class OpenAIService
         return json;
     }
 
+    /// <summary>
+    /// Generates an explanation for a translation.
+    /// </summary>
+    /// <param name="result">The original result.</param>
+    /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
     public async Task<TranslationResult> GenerateExplainAsync(TranslationResult result)
     {
-        if (string.IsNullOrEmpty(this._settings.OpenAIToken))
+        if (string.IsNullOrEmpty(this.settings.OpenAIToken))
         {
             throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
         }
 
-        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this._settings.OpenAIToken));
+        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
 
         var cultureInfo = CultureInfo.GetCultureInfo(result.TranslateTo);

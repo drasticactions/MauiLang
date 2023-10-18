@@ -7,8 +7,15 @@ using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace MauiLang;
 
+/// <summary>
+/// Modal Navigation Settings Page.
+/// </summary>
 public class ModalTranslationSettingsPage : Microsoft.Maui.Controls.NavigationPage
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ModalTranslationSettingsPage"/> class.
+    /// </summary>
+    /// <param name="provider">Provider.</param>
     public ModalTranslationSettingsPage(IServiceProvider provider)
         : base(provider.GetRequiredService<LanguageSelectionPage>())
     {

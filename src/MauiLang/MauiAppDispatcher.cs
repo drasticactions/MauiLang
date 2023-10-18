@@ -8,6 +8,7 @@ namespace MauiLang;
 
 public class MauiAppDispatcher : IAppDispatcher
 {
+    /// <inheritdoc/>
     public bool Dispatch(Action action)
     {
         return Application.Current?.Dispatcher.Dispatch(action) ?? false;

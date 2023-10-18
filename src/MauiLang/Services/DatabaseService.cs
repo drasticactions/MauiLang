@@ -8,18 +8,31 @@ using MauiLang.Models;
 
 namespace MauiLang.Services;
 
+/// <summary>
+/// Database Service.
+/// </summary>
 public class DatabaseService
 {
     private readonly LiteDatabase _db;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatabaseService"/> class.
+    /// </summary>
     public DatabaseService()
     {
         var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         this._db = new LiteDatabase(Path.Combine(path, "mauilang.db"));
     }
 
+    /// <summary>
+    /// Gets the Settings Collection.
+    /// </summary>
     public ILiteCollection<Settings> Settings => this._db.GetCollection<Settings>();
 
+    /// <summary>
+    /// Get Settings.
+    /// </summary>
+    /// <returns>Settings.</returns>
     public Settings GetSettings()
     {
         lock (this._db)
@@ -44,6 +57,10 @@ public class DatabaseService
         }
     }
 
+    /// <summary>
+    /// Set Settings.
+    /// </summary>
+    /// <param name="settings">Settings.</param>
     public void SetSettings(Settings settings)
     {
         lock (this._db)
@@ -51,15 +68,4 @@ public class DatabaseService
             this.Settings.Upsert(settings);
         }
     }
-}
-
-public class Settings
-{
-    public int Id { get; set; }
-
-    public string OpenAIToken { get; set; }
-
-    public MauiLangLanguage? TargetLanguage { get; set; }
-
-    public MauiLangLanguage? OutputResponseLanguage { get; set; }
 }

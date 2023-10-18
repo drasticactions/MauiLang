@@ -16,6 +16,10 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     private string inputText = string.Empty;
     private MauiLangLanguage targetLanguage;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TranslationViewModel"/> class.
+    /// </summary>
+    /// <param name="services"></param>
     public TranslationViewModel(IServiceProvider services)
         : base(services)
     {
@@ -24,21 +28,37 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this);
     }
 
+    /// <summary>
+    /// Gets the command to translate the input text.
+    /// </summary>
     public AsyncCommand TranslateCommand { get; }
 
+    /// <summary>
+    /// Gets the command to open the extra information about the translation result.
+    /// </summary>
     public AsyncCommand OpenExtraCommand { get; }
 
+    /// <summary>
+    /// Gets or sets the target language for translation.
+    /// </summary>
     public MauiLangLanguage TargetLanguage
     {
         get => this.targetLanguage;
         set
         {
             this.SetProperty(ref this.targetLanguage, value);
+
+            // Save the target language to the app settings.
             this.Settings.TargetLanguage = value;
+
+            // Save the app settings to the database.
             this.Database.SetSettings(this.Settings);
         }
     }
 
+    /// <summary>
+    /// Gets or sets the input text to be translated.
+    /// </summary>
     public string InputText
     {
         get => this.inputText;
@@ -49,14 +69,20 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         }
     }
 
-    public TranslationResult? Result {
+    /// <summary>
+    /// Gets or sets the result of the translation.
+    /// </summary>
+    public TranslationResult? Result
+    {
         get => this.result;
-        set {
+        set
+        {
             this.SetProperty(ref this.result, value);
             this.RaiseCanExecuteChanged();
         }
     }
 
+    /// <inheritdoc/>
     public override void RaiseCanExecuteChanged()
     {
         base.RaiseCanExecuteChanged();
@@ -64,6 +90,10 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.OpenExtraCommand.RaiseCanExecuteChanged();
     }
 
+    /// <summary>
+    /// Translates the input text.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     public async Task TranslateAsync()
     {
         if (string.IsNullOrWhiteSpace(this.InputText))
@@ -79,6 +109,10 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.RaiseCanExecuteChanged();
     }
 
+    /// <summary>
+    /// Opens the extra information about the translation result.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     public async Task OpenExtraAsync()
     {
         if (this.Result is null)
@@ -94,6 +128,10 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.Explain ?? Common.NoExplainLabel, "Ok");
     }
 
+    /// <summary>
+    /// Handles an error by displaying an alert with the error message.
+    /// </summary>
+    /// <param name="ex">The exception to handle.</param>
     public void HandleError(Exception ex)
     {
         this.IsBusy = false;

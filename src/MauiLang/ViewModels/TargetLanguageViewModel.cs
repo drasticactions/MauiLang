@@ -7,10 +7,17 @@ using MauiLang.Models;
 
 namespace MauiLang.ViewModels;
 
+/// <summary>
+/// Target Language View Model.
+/// </summary>
 public class TargetLanguageViewModel : MauiLangViewModel
 {
     private TranslationViewModel vm;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TargetLanguageViewModel"/> class.
+    /// </summary>
+    /// <param name="services">The service provider.</param>
     public TargetLanguageViewModel(IServiceProvider services)
         : base(services)
     {
@@ -20,12 +27,24 @@ public class TargetLanguageViewModel : MauiLangViewModel
             new AsyncCommand<MauiLangLanguage>(this.SelectLanguageAsync, null, this.ErrorHandler);
     }
 
+    /// <summary>
+    /// Gets the list of available languages.
+    /// </summary>
     public IReadOnlyList<MauiLangLanguage> Languages { get; }
 
+    /// <summary>
+    /// Gets the command to select a language.
+    /// </summary>
     public AsyncCommand<MauiLangLanguage> SelectLanguageCommand { get; }
 
-    public async Task SelectLanguageAsync(MauiLangLanguage language)
+    /// <summary>
+    /// Selects a target language.
+    /// </summary>
+    /// <param name="language">The language to select.</param>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+    public Task SelectLanguageAsync(MauiLangLanguage language)
     {
         this.vm.TargetLanguage = language;
+        return Task.CompletedTask;
     }
 }

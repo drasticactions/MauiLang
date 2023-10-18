@@ -7,11 +7,18 @@ using MauiLang.Models;
 
 namespace MauiLang.ViewModels;
 
+/// <summary>
+/// Settings View Model.
+/// </summary>
 public class SettingsViewModel : MauiLangViewModel
 {
     private string openAIToken = string.Empty;
     private MauiLangLanguage outputResponseLanguage;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+    /// </summary>
+    /// <param name="services">The service provider.</param>
     public SettingsViewModel(IServiceProvider services)
         : base(services)
     {
@@ -19,6 +26,9 @@ public class SettingsViewModel : MauiLangViewModel
         this.outputResponseLanguage = this.Settings.OutputResponseLanguage ?? new MauiLangLanguage();
     }
 
+    /// <summary>
+    /// Gets or sets the OpenAI token.
+    /// </summary>
     public string OpenAIToken
     {
         get => this.openAIToken;
@@ -30,6 +40,9 @@ public class SettingsViewModel : MauiLangViewModel
         }
     }
 
+    /// <summary>
+    /// Gets or sets the output response language.
+    /// </summary>
     public MauiLangLanguage OutputResponseLanguage
     {
         get => this.outputResponseLanguage;

@@ -309,6 +309,10 @@ public enum MauiLangLanguages : uint
 }
 public class MauiLangLanguage
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MauiLangLanguage"/> class.
+    /// </summary>
+    /// <param name="info"></param>
     public MauiLangLanguage(CultureInfo info)
     {
         this.CultureInfo = info;
@@ -316,6 +320,10 @@ public class MauiLangLanguage
         this.LanguageCode = info.IetfLanguageTag;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MauiLangLanguage"/> class.
+    /// </summary>
+    /// <param name="language"></param>
     public MauiLangLanguage(MauiLangLanguages? language)
     {
         if (language is not null)
@@ -334,6 +342,9 @@ public class MauiLangLanguage
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MauiLangLanguage"/> class.
+    /// </summary>
     public MauiLangLanguage()
     {
         this.IsAutomatic = true;

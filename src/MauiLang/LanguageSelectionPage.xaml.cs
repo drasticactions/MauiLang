@@ -17,6 +17,10 @@ public partial class LanguageSelectionPage : ContentPage
 {
     private TargetLanguageViewModel vm;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LanguageSelectionPage"/> class.
+    /// </summary>
+    /// <param name="provider">Provider.</param>
     public LanguageSelectionPage(IServiceProvider provider)
     {
         this.InitializeComponent();
