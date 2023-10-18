@@ -12,13 +12,13 @@ public partial class MainPage : ContentPage
     private IServiceProvider provider;
     public MainPage(IServiceProvider provider)
     {
-        InitializeComponent();
+        this.InitializeComponent();
         this.provider = provider;
 #if MACCATALYST || IOS
 		this.TopEditor.FontFamily = "Helvetica Neue";
 		this.TopEditor.FontSize = 18;
 		this.TopEditor.FontAttributes = FontAttributes.Bold;
-		
+
 		this.BottomEditor.FontFamily = "Helvetica Neue";
 		this.BottomEditor.FontSize = 18;
 		this.BottomEditor.FontAttributes = FontAttributes.Bold;
@@ -47,7 +47,7 @@ public partial class MainPage : ContentPage
 
     private void SettingsButton_OnClicked(object sender, EventArgs e)
     {
-        Navigation.PushModalAsync(this.provider.GetRequiredService<ModalNavigationSettingsPage>());
+        this.Navigation.PushModalAsync(this.provider.GetRequiredService<ModalNavigationSettingsPage>());
     }
 
     private void TapGestureRecognizer_OnTapped(object sender, TappedEventArgs e)

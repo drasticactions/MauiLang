@@ -16,7 +16,7 @@ public class OpenAIService
 {
     private readonly Settings _settings;
     private IErrorHandlerService _error;
-    
+
     public OpenAIService(IServiceProvider service)
     {
         this._settings = service.GetRequiredService<Settings>();
@@ -25,33 +25,33 @@ public class OpenAIService
 
     public async Task<TranslationResult> GenerateTextAsync(string text)
     {
-        if (string.IsNullOrEmpty(_settings.OpenAIToken))
+        if (string.IsNullOrEmpty(this._settings.OpenAIToken))
         {
             throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
         }
-        
-        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(_settings.OpenAIToken));
+
+        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this._settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
-        var language = _settings.TargetLanguage ?? new MauiLangLanguage();
-        var responseLanguage = _settings.OutputResponseLanguage ?? new MauiLangLanguage();
+        var language = this._settings.TargetLanguage ?? new MauiLangLanguage();
+        var responseLanguage = this._settings.OutputResponseLanguage ?? new MauiLangLanguage();
         var langOutput = language.LanguageCode;
         var responseLang = responseLanguage.LanguageCode;
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
         chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can. Match the tone of the given sentence.");
         chat.AppendUserInput(text);
         var result = await chat.GetResponseFromChatbotAsync();
-        var json = new TranslationResult() { Translation = result, RespondIn = responseLang, TranslateTo = langOutput, InputText = text}; 
+        var json = new TranslationResult() { Translation = result, RespondIn = responseLang, TranslateTo = langOutput, InputText = text};
         return json;
     }
 
     public async Task<TranslationResult> GenerateExplainAsync(TranslationResult result)
     {
-        if (string.IsNullOrEmpty(_settings.OpenAIToken))
+        if (string.IsNullOrEmpty(this._settings.OpenAIToken))
         {
             throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
         }
-        
-        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(_settings.OpenAIToken));
+
+        var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this._settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
 
         var cultureInfo = CultureInfo.GetCultureInfo(result.TranslateTo);

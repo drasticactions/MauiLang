@@ -11,31 +11,31 @@ namespace MauiLang.Services;
 public class DatabaseService
 {
     private readonly LiteDatabase _db;
-    
+
     public DatabaseService()
     {
         var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        _db = new LiteDatabase(Path.Combine(path, "mauilang.db"));
+        this._db = new LiteDatabase(Path.Combine(path, "mauilang.db"));
     }
-    
-    public ILiteCollection<Settings> Settings => _db.GetCollection<Settings>();
-    
+
+    public ILiteCollection<Settings> Settings => this._db.GetCollection<Settings>();
+
     public Settings GetSettings()
     {
-        lock (_db)
+        lock (this._db)
         {
-            var settings = Settings.FindAll().FirstOrDefault();
+            var settings = this.Settings.FindAll().FirstOrDefault();
             if (settings == null)
             {
                 settings = new Settings();
-                Settings.Insert(settings);
+                this.Settings.Insert(settings);
             }
 
             if (settings.TargetLanguage is not null)
             {
                 settings.TargetLanguage.CultureInfo = CultureInfo.GetCultureInfo(settings.TargetLanguage.LanguageCode);
             }
-            
+
             if (settings.OutputResponseLanguage is not null)
             {
                 settings.OutputResponseLanguage.CultureInfo = CultureInfo.GetCultureInfo(settings.OutputResponseLanguage.LanguageCode);
@@ -43,12 +43,12 @@ public class DatabaseService
             return settings;
         }
     }
-    
+
     public void SetSettings(Settings settings)
     {
-        lock (_db)
+        lock (this._db)
         {
-            Settings.Upsert(settings);
+            this.Settings.Upsert(settings);
         }
     }
 }
@@ -56,10 +56,10 @@ public class DatabaseService
 public class Settings
 {
     public int Id { get; set; }
-    
+
     public string OpenAIToken { get; set; }
-    
+
     public MauiLangLanguage? TargetLanguage { get; set; }
-    
+
     public MauiLangLanguage? OutputResponseLanguage { get; set; }
 }

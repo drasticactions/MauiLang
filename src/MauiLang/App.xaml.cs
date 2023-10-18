@@ -7,16 +7,16 @@ namespace MauiLang;
 public partial class App : Application
 {
 	private IServiceProvider provider;
-	
+
 	public App(IServiceProvider provider)
 	{
-		InitializeComponent();
+		this.InitializeComponent();
 
 		this.provider = provider;
 	}
 
 	protected override Window CreateWindow(IActivationState activationState)
 	{
-		return new Window(new MauiNavigationPage(new MainPage(provider)));
+		return new Window(new MauiNavigationPage(new MainPage(this.provider)));
 	}
 }

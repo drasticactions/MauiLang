@@ -12,6 +12,6 @@ public class ModalNavigationSettingsPage : Microsoft.Maui.Controls.NavigationPag
     public ModalNavigationSettingsPage(IServiceProvider provider)
         : base(provider.GetRequiredService<SettingsPage>())
     {
-        On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
+        this.On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
     }
 }

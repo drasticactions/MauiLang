@@ -12,6 +12,6 @@ public class ModalTranslationSettingsPage : Microsoft.Maui.Controls.NavigationPa
     public ModalTranslationSettingsPage(IServiceProvider provider)
         : base(provider.GetRequiredService<LanguageSelectionPage>())
     {
-        On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
+        this.On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
     }
 }

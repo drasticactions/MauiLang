@@ -65,7 +65,7 @@ public static class MauiProgram
 					ParagraphStyle = centeredParagraphStyle
 				}
 			);
-			
+
 			handler.PlatformView.AttributedPlaceholderText = attributedPlaceholder;
 		});
 #endif

@@ -15,7 +15,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     private TranslationResult? result;
     private string inputText = string.Empty;
     private MauiLangLanguage targetLanguage;
-    
+
     public TranslationViewModel(IServiceProvider services)
         : base(services)
     {
@@ -23,11 +23,11 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.TranslateCommand = new AsyncCommand(this.TranslateAsync, () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this);
         this.OpenExtraCommand = new AsyncCommand(this.OpenExtraAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this);
     }
-    
+
     public AsyncCommand TranslateCommand { get; }
 
     public AsyncCommand OpenExtraCommand { get; }
-    
+
     public MauiLangLanguage TargetLanguage
     {
         get => this.targetLanguage;
@@ -38,7 +38,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
             this.Database.SetSettings(this.Settings);
         }
     }
-    
+
     public string InputText
     {
         get => this.inputText;
@@ -67,7 +67,9 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     public async Task TranslateAsync()
     {
         if (string.IsNullOrWhiteSpace(this.InputText))
+        {
             return;
+        }
 
         this.Result = null;
         this.IsBusy = true;
@@ -80,13 +82,15 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     public async Task OpenExtraAsync()
     {
         if (this.Result is null)
+        {
             return;
+        }
 
         this.IsBusy = true;
         this.RaiseCanExecuteChanged();
         this.Result = await this.OpenAI.GenerateExplainAsync(this.Result);
         this.IsBusy = false;
-        this.RaiseCanExecuteChanged(); 
+        this.RaiseCanExecuteChanged();
         await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.Explain ?? Common.NoExplainLabel, "Ok");
     }
 

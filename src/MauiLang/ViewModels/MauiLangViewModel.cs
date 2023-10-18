@@ -16,10 +16,10 @@ public class MauiLangViewModel : BaseViewModel
         this.OpenAI = services.GetRequiredService<OpenAIService>();
         this.Settings = services.GetRequiredService<Settings>();
     }
-    
+
     public DatabaseService Database { get; }
-    
+
     public OpenAIService OpenAI { get; }
-    
+
     public Settings Settings { get; }
 }

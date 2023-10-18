@@ -16,16 +16,16 @@ namespace MauiLang;
 public partial class LanguageSelectionPage : ContentPage
 {
     private TargetLanguageViewModel vm;
-    
+
     public LanguageSelectionPage(IServiceProvider provider)
     {
-        InitializeComponent();
+        this.InitializeComponent();
         this.BindingContext = this.vm = provider.GetRequiredService<TargetLanguageViewModel>();
     }
 
     private void CloseButtonClicked(object sender, EventArgs e)
     {
-        Navigation.PopModalAsync();
+        this.Navigation.PopModalAsync();
     }
 
     private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -33,7 +33,7 @@ public partial class LanguageSelectionPage : ContentPage
         if (e.SelectedItem is MauiLangLanguage lang)
         {
             await this.vm.SelectLanguageCommand.ExecuteAsync(lang);
-            await Navigation.PopModalAsync();
+            await this.Navigation.PopModalAsync();
             this.ListView.SelectedItem = null;
         }
     }

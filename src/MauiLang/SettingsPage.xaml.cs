@@ -17,23 +17,23 @@ public partial class SettingsPage : ContentPage
     private SettingsViewModel vm;
     private LanguageSelectionPage page;
     private OutputResponseLanguagePage outputPage;
-    
+
     public SettingsPage(IServiceProvider provider)
     {
-        InitializeComponent();
+        this.InitializeComponent();
         this.provider = provider;
         this.page = new LanguageSelectionPage(provider);
         this.outputPage = new OutputResponseLanguagePage(provider);
         this.BindingContext = this.vm = this.provider.GetRequiredService<SettingsViewModel>();
     }
-    
+
     private void PopModalTapped(object sender, EventArgs e)
     {
-        Navigation.PopModalAsync();
+        this.Navigation.PopModalAsync();
     }
-    
+
     private void OutputLanguageTapped(object sender, TappedEventArgs e)
     {
-        Navigation.PushAsync(this.outputPage);
+        this.Navigation.PushAsync(this.outputPage);
     }
 }

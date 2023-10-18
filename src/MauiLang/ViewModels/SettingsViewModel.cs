@@ -11,14 +11,14 @@ public class SettingsViewModel : MauiLangViewModel
 {
     private string openAIToken = string.Empty;
     private MauiLangLanguage outputResponseLanguage;
-    
+
     public SettingsViewModel(IServiceProvider services)
         : base(services)
     {
         this.openAIToken = this.Settings.OpenAIToken;
         this.outputResponseLanguage = this.Settings.OutputResponseLanguage ?? new MauiLangLanguage();
     }
-    
+
     public string OpenAIToken
     {
         get => this.openAIToken;

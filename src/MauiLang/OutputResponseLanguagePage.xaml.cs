@@ -15,16 +15,16 @@ namespace MauiLang;
 public partial class OutputResponseLanguagePage : ContentPage
 {
     private OutputResponseLanguageViewModel vm;
-    
+
     public OutputResponseLanguagePage(IServiceProvider provider)
     {
-        InitializeComponent();
+        this.InitializeComponent();
         this.BindingContext = this.vm = provider.GetRequiredService<OutputResponseLanguageViewModel>();
     }
-    
+
     private void BackButtonPressed(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        this.Navigation.PopAsync();
     }
 
     private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -32,7 +32,7 @@ public partial class OutputResponseLanguagePage : ContentPage
         if (e.SelectedItem is MauiLangLanguage lang)
         {
             await this.vm.SelectLanguageCommand.ExecuteAsync(lang);
-            await Navigation.PopAsync();
+            await this.Navigation.PopAsync();
         }
     }
 }
