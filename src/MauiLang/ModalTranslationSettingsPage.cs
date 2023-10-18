@@ -1,4 +1,4 @@
-// <copyright file="ModalNavigationSettingsPage.cs" company="Drastic Actions">
+// <copyright file="ModalTranslationSettingsPage.cs" company="Drastic Actions">
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
@@ -7,10 +7,10 @@ using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace MauiLang;
 
-public class ModalNavigationSettingsPage : Microsoft.Maui.Controls.NavigationPage
+public class ModalTranslationSettingsPage : Microsoft.Maui.Controls.NavigationPage
 {
-    public ModalNavigationSettingsPage(IServiceProvider provider)
-        : base(provider.GetRequiredService<SettingsPage>())
+    public ModalTranslationSettingsPage(IServiceProvider provider)
+        : base(provider.GetRequiredService<LanguageSelectionPage>())
     {
         On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
     }

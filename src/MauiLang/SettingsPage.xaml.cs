@@ -1,3 +1,7 @@
+// <copyright file="SettingsPage.xaml.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,27 +27,12 @@ public partial class SettingsPage : ContentPage
         this.BindingContext = this.vm = this.provider.GetRequiredService<SettingsViewModel>();
     }
     
-    private void Button_OnClicked(object sender, EventArgs e)
+    private void PopModalTapped(object sender, EventArgs e)
     {
         Navigation.PopModalAsync();
     }
-
-    private void Cell_OnTapped(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(this.page);
-    }
-
-    private void Cell2_OnTapped(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(this.outputPage);
-    }
-
-    private void TapGestureRecognizer_OnTapped(object sender, TappedEventArgs e)
-    {
-        Navigation.PushAsync(this.page);
-    }
     
-    private void TapGestureRecognizer2_OnTapped(object sender, TappedEventArgs e)
+    private void OutputLanguageTapped(object sender, TappedEventArgs e)
     {
         Navigation.PushAsync(this.outputPage);
     }

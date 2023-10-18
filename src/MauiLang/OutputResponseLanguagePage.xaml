@@ -20,6 +20,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="{x:Static common:Common.GoBackLabel}" Clicked="Button_OnClicked" />
+        <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="5" Text="{x:Static common:Common.GoBackLabel}" Clicked="BackButtonPressed" />
     </Grid>
 </ContentPage>

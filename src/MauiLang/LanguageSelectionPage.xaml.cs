@@ -1,3 +1,7 @@
+// <copyright file="LanguageSelectionPage.xaml.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +23,7 @@ public partial class LanguageSelectionPage : ContentPage
         this.BindingContext = this.vm = provider.GetRequiredService<TargetLanguageViewModel>();
     }
 
-    private void Button_OnClicked(object sender, EventArgs e)
+    private void CloseButtonClicked(object sender, EventArgs e)
     {
         Navigation.PopModalAsync();
     }

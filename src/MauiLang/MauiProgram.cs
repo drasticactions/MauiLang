@@ -1,8 +1,11 @@
-﻿using Drastic.Services;
+﻿// <copyright file="MauiProgram.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using Drastic.Services;
 using MauiLang.Services;
 using MauiLang.ViewModels;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Handlers;
 
 namespace MauiLang;
 

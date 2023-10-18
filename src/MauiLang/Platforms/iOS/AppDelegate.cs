@@ -1,4 +1,8 @@
-﻿using Foundation;
+﻿// <copyright file="AppDelegate.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using Foundation;
 
 namespace MauiLang;
 

@@ -1,3 +1,7 @@
+// <copyright file="MauiLangViewModel.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using Drastic.ViewModels;
 using MauiLang.Services;
 

@@ -1,3 +1,7 @@
+// <copyright file="OutputResponseLanguageViewModel.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using Drastic.Tools;
 using MauiLang.Models;
 

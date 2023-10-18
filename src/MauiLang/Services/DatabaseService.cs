@@ -1,3 +1,7 @@
+// <copyright file="DatabaseService.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.Globalization;
 using LiteDB;
 using MauiLang.Models;

@@ -1,3 +1,7 @@
+// <copyright file="MauiLangLanguage.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using LiteDB;

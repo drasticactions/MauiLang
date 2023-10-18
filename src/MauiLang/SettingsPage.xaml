@@ -20,13 +20,17 @@
                         <Label HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" Text="{x:Static common:Common.OutputResponseLabel}" />
                         <Label Grid.Row="1" FontSize="12" Text="{Binding OutputResponseLanguage.Language}">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer2_OnTapped"></TapGestureRecognizer>
+                                <TapGestureRecognizer Tapped="OutputLanguageTapped"></TapGestureRecognizer>
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>
                 </Grid>
             </ScrollView>
-            <Button Style="{StaticResource ButtonStyle}" Margin="5" Grid.Row="2" Text="{x:Static common:Common.CloseLabel}" Clicked="Button_OnClicked" />
+            <Button Style="{StaticResource ButtonStyle}"
+                    Margin="5"
+                    Grid.Row="2"
+                    Text="{x:Static common:Common.CloseLabel}"
+                    Clicked="PopModalTapped" />
        </Grid>
     </ContentPage.Content>
 </ContentPage>

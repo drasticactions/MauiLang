@@ -46,13 +46,26 @@ public class ToolbarDelegate : NSToolbarDelegate
     }
 
     [Export("buttonClickAction:")]
-    public void ButtonClickAction(NSObject sender)
+    public async void ButtonClickAction(NSObject sender)
     {
         var settings = this.window.Handler?.MauiContext?.Services?.GetRequiredService<ModalNavigationSettingsPage>();
-        if (settings != null)
+        if (settings != null && this.window?.Page?.Navigation != null)
         {
-            this.window.Page.Navigation.PushModalAsync(settings);
-            //this.window.Page.Navigation.PushAsync(settings);
+            await this.window.Page.Navigation.PushModalAsync(settings);
+            
+            // Control the size of the resulting modal.
+            // MAUI wraps modals in a ControlModalWrapper class,
+            // setting the size of its PrefferedContentSize property will control the size of the modal.
+            // but you can't do it until it's already created.
+
+            //var test = this.GetModalWrapper(settings);
+            //test.PreferredContentSize = new CoreGraphics.CGSize(300, 400);
         }
+    }
+
+    internal UIViewController GetModalWrapper(Page modalPage)
+	{
+			var pageVC = (modalPage.Handler as IPlatformViewHandler).ViewController;
+			return (UIViewController)pageVC.ParentViewController;
     }
 }

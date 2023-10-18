@@ -1,24 +1,22 @@
-﻿namespace MauiLang;
+﻿// <copyright file="App.xaml.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+namespace MauiLang;
 
 public partial class App : Application
 {
+	private IServiceProvider provider;
+	
 	public App(IServiceProvider provider)
 	{
 		InitializeComponent();
 
-		MainPage = new MauiNavigationPage(new MainPage(provider));
-	}
-}
-
-public class MauiNavigationPage : NavigationPage
-{
-	public MauiNavigationPage(Page page) : base(page)
-	{
-		this.Title = "MauiLang";
+		this.provider = provider;
 	}
 
-	protected override void OnHandlerChanged()
+	protected override Window CreateWindow(IActivationState activationState)
 	{
-		base.OnHandlerChanged();
+		return new Window(new MauiNavigationPage(new MainPage(provider)));
 	}
 }

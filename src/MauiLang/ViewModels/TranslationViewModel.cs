@@ -1,3 +1,7 @@
+// <copyright file="TranslationViewModel.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using Drastic.Services;
 using Drastic.Tools;
 using MauiLang.Models;
@@ -83,7 +87,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.Result = await this.OpenAI.GenerateExplainAsync(this.Result);
         this.IsBusy = false;
         this.RaiseCanExecuteChanged(); 
-        await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.explain ?? Common.NoExplainLabel, "Ok");
+        await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.Explain ?? Common.NoExplainLabel, "Ok");
     }
 
     public void HandleError(Exception ex)

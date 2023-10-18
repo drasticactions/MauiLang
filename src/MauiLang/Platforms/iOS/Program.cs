@@ -1,4 +1,8 @@
-﻿using ObjCRuntime;
+﻿// <copyright file="Program.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using ObjCRuntime;
 using UIKit;
 
 namespace MauiLang;

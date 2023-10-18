@@ -1,4 +1,8 @@
-﻿using MauiLang.ViewModels;
+﻿// <copyright file="MainPage.xaml.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using MauiLang.ViewModels;
 
 namespace MauiLang;
 
