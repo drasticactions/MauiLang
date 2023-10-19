@@ -74,7 +74,7 @@
                                 BackgroundColor="Transparent"
                                 ZIndex="0"
                                 Placeholder="{x:Static common:Common.OutputTextLabel}"
-                                Text="{Binding Result.translation}"
+                                Text="{Binding Result.Translation}"
                                 x:Name="BottomEditor"/>
                             
                         </Grid>
