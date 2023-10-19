@@ -91,10 +91,22 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     }
 
     /// <summary>
+    /// Handles an error by displaying an alert with the error message.
+    /// </summary>
+    /// <param name="ex">The exception to handle.</param>
+    void IErrorHandlerService.HandleError(Exception ex)
+    {
+        this.IsBusy = false;
+        this.RaiseCanExecuteChanged();
+        this.Result = null;
+        Application.Current?.MainPage?.DisplayAlert("Error", ex.Message, "Ok");
+    }
+
+    /// <summary>
     /// Translates the input text.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-    public async Task TranslateAsync()
+    private async Task TranslateAsync()
     {
         if (string.IsNullOrWhiteSpace(this.InputText))
         {
@@ -113,7 +125,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     /// Opens the extra information about the translation result.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-    public async Task OpenExtraAsync()
+    private async Task OpenExtraAsync()
     {
         if (this.Result is null)
         {
@@ -126,17 +138,5 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.IsBusy = false;
         this.RaiseCanExecuteChanged();
         await Application.Current!.MainPage!.DisplayAlert(Common.ExplainLabel, this.Result?.Explain ?? Common.NoExplainLabel, "Ok");
-    }
-
-    /// <summary>
-    /// Handles an error by displaying an alert with the error message.
-    /// </summary>
-    /// <param name="ex">The exception to handle.</param>
-    public void HandleError(Exception ex)
-    {
-        this.IsBusy = false;
-        this.RaiseCanExecuteChanged();
-        this.Result = null;
-        Application.Current?.MainPage?.DisplayAlert("Error", ex.Message, "Ok");
     }
 }

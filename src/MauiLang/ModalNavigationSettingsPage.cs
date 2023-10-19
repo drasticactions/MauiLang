@@ -19,6 +19,7 @@ public class ModalNavigationSettingsPage : Microsoft.Maui.Controls.NavigationPag
     public ModalNavigationSettingsPage(IServiceProvider provider)
         : base(provider.GetRequiredService<SettingsPage>())
     {
+        // Show a form sheet for modals on iOS.
         this.On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
     }
 }

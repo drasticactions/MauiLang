@@ -21,6 +21,8 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
 #if MACCATALYST
+        // Changes buttons to match iPad behavior.
+        // This allows us to keep colors and styles.
         Microsoft.Maui.Handlers.ButtonHandler.Mapper.AppendToMapping("ButtonChange", (handler, view) =>
         {
             handler.PlatformView.PreferredBehavioralStyle = UIKit.UIBehavioralStyle.Pad;
@@ -28,12 +30,11 @@ public static class MauiProgram
             handler.PlatformView.ClipsToBounds = true;
         });
 
+        // Adds toolbar to window.
         Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping("WindowChange", (handler, view) =>
         {
-            // handler.PlatformView.PreferredDisplayMode = UIKit.UISplitViewControllerDisplayMode.AllVisible;
             if (handler.PlatformView?.WindowScene?.Titlebar != null && view is Window win)
             {
-                //handler.PlatformView.WindowScene.Titlebar.TitleVisibility = UIKit.UITitlebarTitleVisibility.Hidden;
                 var toolbar = new AppKit.NSToolbar();
                 toolbar.Delegate = new ToolbarDelegate(win);
                 toolbar.DisplayMode = AppKit.NSToolbarDisplayMode.Icon;
@@ -46,6 +47,7 @@ public static class MauiProgram
 #endif
 
 #if WINDOWS
+        // Adds Mica backdrop, removes colors for title bar buttons.
         Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping("WindowChange", (handler, view) =>
         {
             handler.PlatformView.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
@@ -61,6 +63,7 @@ public static class MauiProgram
 #endif
 
 #if IOS || MACCATALYST
+        // Forces placeholder text to appeared center aligned.
         Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("EntryChange", (handler, view) =>
         {
             var centeredParagraphStyle = new UIKit.NSMutableParagraphStyle();
@@ -69,9 +72,8 @@ public static class MauiProgram
                 view.Placeholder,
                 new UIKit.UIStringAttributes
                 {
-                    ParagraphStyle = centeredParagraphStyle
-                }
-            );
+                    ParagraphStyle = centeredParagraphStyle,
+                });
 
             handler.PlatformView.AttributedPlaceholderText = attributedPlaceholder;
         });
@@ -92,15 +94,11 @@ public static class MauiProgram
             .AddSingleton<TranslationViewModel>()
             .AddSingleton<ModalNavigationSettingsPage>()
             .AddSingleton<OutputResponseLanguageViewModel>()
+            .AddSingleton<OutputResponseLanguagePage>()
             .AddSingleton<ModalTranslationSettingsPage>()
             .AddSingleton<TargetLanguageViewModel>();
         builder
-            .UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            .UseMauiApp<App>();
 
 #if DEBUG
         builder.Logging.AddDebug();

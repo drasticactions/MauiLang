@@ -12,7 +12,7 @@ namespace MauiLang.ViewModels;
 /// </summary>
 public class OutputResponseLanguageViewModel : MauiLangViewModel
 {
-    private SettingsViewModel vm;
+    private readonly SettingsViewModel vm;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OutputResponseLanguageViewModel"/> class.
@@ -42,7 +42,7 @@ public class OutputResponseLanguageViewModel : MauiLangViewModel
     /// </summary>
     /// <param name="language">The language to select.</param>
     /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-    public Task SelectLanguageAsync(MauiLangLanguage language)
+    private Task SelectLanguageAsync(MauiLangLanguage language)
     {
         this.vm.OutputResponseLanguage = language;
         return Task.CompletedTask;

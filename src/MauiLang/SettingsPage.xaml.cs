@@ -15,7 +15,6 @@ public partial class SettingsPage : ContentPage
 {
     private IServiceProvider provider;
     private SettingsViewModel vm;
-    private LanguageSelectionPage page;
     private OutputResponseLanguagePage outputPage;
 
     /// <summary>
@@ -26,8 +25,7 @@ public partial class SettingsPage : ContentPage
     {
         this.InitializeComponent();
         this.provider = provider;
-        this.page = new LanguageSelectionPage(provider);
-        this.outputPage = new OutputResponseLanguagePage(provider);
+        this.outputPage = this.provider.GetRequiredService<OutputResponseLanguagePage>();
         this.BindingContext = this.vm = this.provider.GetRequiredService<SettingsViewModel>();
     }
 

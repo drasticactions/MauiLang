@@ -16,7 +16,7 @@ public class MauiLangViewModel : BaseViewModel
     /// Initializes a new instance of the <see cref="MauiLangViewModel"/> class.
     /// </summary>
     /// <param name="services">The services.</param>
-    public MauiLangViewModel(IServiceProvider services)
+    protected MauiLangViewModel(IServiceProvider services)
         : base(services)
     {
         this.Database = services.GetRequiredService<DatabaseService>();
@@ -27,15 +27,15 @@ public class MauiLangViewModel : BaseViewModel
     /// <summary>
     /// Gets the database service.
     /// </summary>
-    public DatabaseService Database { get; }
+    protected DatabaseService Database { get; }
 
     /// <summary>
     /// Gets the OpenAI Service.
     /// </summary>
-    public OpenAIService OpenAI { get; }
+    protected OpenAIService OpenAI { get; }
 
     /// <summary>
     /// Gets the settings.
     /// </summary>
-    public Settings Settings { get; }
+    protected Settings Settings { get; }
 }

@@ -2,6 +2,7 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
+using Drastic.Tools;
 using Drastic.ViewModels;
 using MauiLang.Models;
 
@@ -12,7 +13,7 @@ namespace MauiLang.ViewModels;
 /// </summary>
 public class SettingsViewModel : MauiLangViewModel
 {
-    private string openAIToken = string.Empty;
+    private string openAIToken;
     private MauiLangLanguage outputResponseLanguage;
 
     /// <summary>
@@ -22,9 +23,15 @@ public class SettingsViewModel : MauiLangViewModel
     public SettingsViewModel(IServiceProvider services)
         : base(services)
     {
-        this.openAIToken = this.Settings.OpenAIToken;
+        this.openAIToken = this.Settings.OpenAIToken ?? string.Empty;
         this.outputResponseLanguage = this.Settings.OutputResponseLanguage ?? new MauiLangLanguage();
+        this.CloseModalCommand = new AsyncCommand(this.CloseModalAsync, null, this.Dispatcher, this.ErrorHandler);
     }
+
+    /// <summary>
+    /// Gets the close modal command.
+    /// </summary>
+    public AsyncCommand CloseModalCommand { get; }
 
     /// <summary>
     /// Gets or sets the OpenAI token.
@@ -52,5 +59,10 @@ public class SettingsViewModel : MauiLangViewModel
             this.Settings.OutputResponseLanguage = value;
             this.Database.SetSettings(this.Settings);
         }
+    }
+
+    private Task CloseModalAsync()
+    {
+        return Application.Current?.MainPage?.Navigation.PopModalAsync() ?? Task.CompletedTask;
     }
 }

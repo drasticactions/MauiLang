@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using LiteDB;
-using MauiLang.Models;
 
 namespace MauiLang.Services;
 
@@ -27,7 +26,7 @@ public class DatabaseService
     /// <summary>
     /// Gets the Settings Collection.
     /// </summary>
-    public ILiteCollection<Settings> Settings => this._db.GetCollection<Settings>();
+    private ILiteCollection<Settings> Settings => this._db.GetCollection<Settings>();
 
     /// <summary>
     /// Get Settings.
@@ -53,6 +52,7 @@ public class DatabaseService
             {
                 settings.OutputResponseLanguage.CultureInfo = CultureInfo.GetCultureInfo(settings.OutputResponseLanguage.LanguageCode);
             }
+
             return settings;
         }
     }

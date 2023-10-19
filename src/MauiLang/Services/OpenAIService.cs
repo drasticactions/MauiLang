@@ -5,6 +5,7 @@
 using System.Globalization;
 using Drastic.Services;
 using MauiLang.Models;
+using Microsoft.Extensions.Logging;
 using OpenAI_API;
 
 namespace MauiLang.Services;
@@ -15,7 +16,7 @@ namespace MauiLang.Services;
 public class OpenAIService
 {
     private readonly Settings settings;
-    private readonly IErrorHandlerService error;
+    private ILogger? logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OpenAIService"/> class.
@@ -24,7 +25,7 @@ public class OpenAIService
     public OpenAIService(IServiceProvider service)
     {
         this.settings = service.GetRequiredService<Settings>();
-        this.error = service.GetRequiredService<IErrorHandlerService>();
+        this.logger = service.GetService<ILogger>();
     }
 
     /// <summary>
@@ -46,11 +47,15 @@ public class OpenAIService
         var langOutput = language.LanguageCode;
         var responseLang = responseLanguage.LanguageCode;
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
-        chat.AppendSystemMessage($"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can. Match the tone of the given sentence.");
+        var message =
+            $"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can. Match the tone of the given sentence.";
+        chat.AppendSystemMessage(message);
+        this.logger?.LogDebug(message);
         chat.AppendUserInput(text);
+        this.logger?.LogDebug(text);
         var result = await chat.GetResponseFromChatbotAsync();
-        var json = new TranslationResult() { Translation = result, RespondIn = responseLang, TranslateTo = langOutput, InputText = text};
-        return json;
+        this.logger?.LogDebug(result);
+        return new TranslationResult() { Translation = result, RespondIn = responseLang, TranslateTo = langOutput, InputText = text};
     }
 
     /// <summary>
@@ -65,18 +70,33 @@ public class OpenAIService
             throw new OpenAIServiceException("OpenAI Token is not set. Please set it in the settings page.");
         }
 
+        if (string.IsNullOrEmpty(result.TranslateTo))
+        {
+            throw new OpenAIServiceException("TranslateTo is not set.");
+        }
+
+        if (string.IsNullOrEmpty(result.RespondIn))
+        {
+            throw new OpenAIServiceException("RespondIn is not set.");
+        }
+
         var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
 
         var cultureInfo = CultureInfo.GetCultureInfo(result.TranslateTo);
         var responseL = CultureInfo.GetCultureInfo(result.RespondIn);
-        chat.AppendUserInput($"You are a translator. You have translated \"{result.InputText}\" into {cultureInfo.EnglishName}: \"{result.Translation}\". Break down the specifics of how you created your translation in detail, going over the specific grammar choices you used. Write your explanation in {responseL.EnglishName}.");
+        var message =
+            $"You are a translator. You have translated \"{result.InputText}\" into {cultureInfo.EnglishName}: \"{result.Translation}\". Break down the specifics of how you created your translation in detail, going over the specific grammar choices you used. Write your explanation in {responseL.EnglishName}.";
+        chat.AppendUserInput(message);
+        this.logger?.LogDebug(message);
         var output = await chat.GetResponseFromChatbotAsync();
         result.Explain = output;
+        this.logger?.LogDebug(output);
         if (string.IsNullOrEmpty(result.Explain))
         {
             result.Explain = Translations.Common.NoExplainLabel;
         }
+
         return result;
     }
 }

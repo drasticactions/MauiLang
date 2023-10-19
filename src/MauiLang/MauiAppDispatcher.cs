@@ -6,6 +6,9 @@ using Drastic.Services;
 
 namespace MauiLang;
 
+/// <summary>
+/// Maui App Dispatcher.
+/// </summary>
 public class MauiAppDispatcher : IAppDispatcher
 {
     /// <inheritdoc/>
