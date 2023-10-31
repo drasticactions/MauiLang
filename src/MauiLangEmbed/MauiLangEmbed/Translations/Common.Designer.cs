@@ -142,6 +142,15 @@ namespace MauiLang.Translations {
         }
         
         /// <summary>
+        ///   Quit Label... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string QuitLabel {
+            get {
+                return ResourceManager.GetString("QuitLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Settings に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SettingsLabel {

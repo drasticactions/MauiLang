@@ -11,6 +11,7 @@
     <ImplicitUsings>true</ImplicitUsings>
     <UseMaui>true</UseMaui>
     <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+    <HybridGlobalization>true</HybridGlobalization>
   </PropertyGroup>
   
   <ItemGroup>

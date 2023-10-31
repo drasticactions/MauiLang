@@ -1,6 +1,7 @@
 using Drastic.Tools;
 using Microsoft.Maui.Platform;
 
+
 namespace MauiLang;
 
 public partial class MainPage : ContentPage
@@ -12,6 +13,15 @@ public partial class MainPage : ContentPage
     public MainPage(IServiceProvider provider, IModalNavigation parent)
     {
         InitializeComponent();
+#if MACCATALYST || IOS
+        this.TopEditor.FontFamily = "Helvetica Neue";
+        this.TopEditor.FontSize = 18;
+        this.TopEditor.FontAttributes = FontAttributes.Bold;
+
+        this.BottomEditor.FontFamily = "Helvetica Neue";
+        this.BottomEditor.FontSize = 18;
+        this.BottomEditor.FontAttributes = FontAttributes.Bold;
+#endif
         this.provider = provider;
         this.parent = parent;
         this.BindingContext = this.vm = this.provider.ResolveWith<ViewModels.TranslationViewModel>();
@@ -25,7 +35,12 @@ public partial class MainPage : ContentPage
         this.SettingsButton.Text = string.Empty;
         var gearIcon = UIKit.UIImage.GetSystemImage("gearshape");
         var button = (UIKit.UIButton)this.SettingsButton.Handler!.PlatformView;
+        button!.PreferredBehavioralStyle = UIKit.UIBehavioralStyle.Pad;
         button!.SetImage(gearIcon, UIKit.UIControlState.Normal);
+        var languageLabel = (UIKit.UILabel)this.LanguageSelectionLabel.Handler!.PlatformView;
+        var tapGesture = new UIKit.UITapGestureRecognizer(HandleTap);
+        languageLabel.UserInteractionEnabled = true;
+        languageLabel.AddGestureRecognizer(tapGesture);
 #elif WINDOWS
         this.SettingsButton.Text = string.Empty;
         var gearIcon = Microsoft.UI.Xaml.Controls.Symbol.Setting;
@@ -43,6 +58,13 @@ public partial class MainPage : ContentPage
         this.parent.OpenLanguageSelectionModal();
     }
 #endif
+
+    #if MACCATALYST
+    void HandleTap(UIKit.UITapGestureRecognizer recognizer)
+    {
+        this.parent.OpenLanguageSelectionModal();
+    }
+    #endif
 
     private void SettingsButton_OnClicked(object sender, EventArgs e)
     {
