@@ -150,4 +150,7 @@
   <data name="TranslationTargetLabel" xml:space="preserve">
     <value>翻訳対象:</value>
   </data>
+  <data name="QuitLabel" xml:space="preserve">
+    <value>終了</value>
+  </data>
 </root>
