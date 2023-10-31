@@ -16,14 +16,17 @@ public class SettingsViewModel : MauiLangViewModel
     private string openAIToken;
     private MauiLangLanguage outputResponseLanguage;
     private INativeNavigation? nativeNavigation;
+    private IModalNavigation? modalNavigation;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
     /// </summary>
     /// <param name="services">The service provider.</param>
-    public SettingsViewModel(IServiceProvider services, INativeNavigation? nativeNavigation = default)
+    public SettingsViewModel(IServiceProvider services, IModalNavigation? modalNavigation = default, INativeNavigation? nativeNavigation = default)
         : base(services)
     {
+        this.modalNavigation = modalNavigation;
+
         this.nativeNavigation = nativeNavigation;
         this.openAIToken = this.Settings.OpenAIToken ?? string.Empty;
         this.outputResponseLanguage = this.Settings.OutputResponseLanguage ?? new MauiLangLanguage();
@@ -65,7 +68,7 @@ public class SettingsViewModel : MauiLangViewModel
 
     private Task CloseModalAsync()
     {
-        this.nativeNavigation?.CloseModal();
+        this.modalNavigation?.CloseModal();
         return Task.CompletedTask;
     }
 }

@@ -24,29 +24,35 @@ namespace MauiLangEmbedWinUI
     public sealed partial class SettingsModalContentDialog : ContentDialog, INativeNavigation
     {
         private MauiContext context;
+        private FrameworkElement settingsPage;
+        private FrameworkElement outputResponsePage;
+        private IModalNavigation modalNavigation;
 
-        public SettingsModalContentDialog(MauiContext context)
+        public SettingsModalContentDialog(MauiContext context, IModalNavigation modalNavigation)
         {
-            this.context = context;
             this.InitializeComponent();
+            this.modalNavigation = modalNavigation;
+            this.context = context;
             this.Style = Microsoft.UI.Xaml.Application.Current.Resources["DefaultContentDialogStyle"] as Microsoft.UI.Xaml.Style;
-            var debugPage = context.Services.ResolveWith<SettingsPage>(this);
-            this.MainContentFrame.Content = debugPage.ToPlatform(context);
+            var debugPage = context.Services.ResolveWith<SettingsPage>(modalNavigation, this);
+            this.outputResponsePage = context.Services.ResolveWith<OutputResponseLanguagePage>(this).ToPlatform(context);
+            this.settingsPage = debugPage.ToPlatform(context);
+            this.MainContentFrame.Content = this.settingsPage;
         }
 
-        public void CloseModal()
-        {
-            this.Hide();
-        }
-
-        public void OpenModal()
+        public void ShowLanguageSelectionPage()
         {
             throw new NotImplementedException();
         }
 
-        public void SetPage(object page)
+        public void ShowOutputResponseLanguagePage()
         {
-            this.MainContentFrame.Content = page;
+            this.MainContentFrame.Content = this.outputResponsePage;
+        }
+
+        public void ShowSettingsPage()
+        {
+            this.MainContentFrame.Content = this.settingsPage;
         }
     }
 }

@@ -15,7 +15,8 @@
 		<EnableDefaultXamlItems>false</EnableDefaultXamlItems>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="SettingsModalContentDialog.xaml" />
+		<None Remove="LanguageSelectionContentDialog.xaml" />
+		<None Remove="SettingsModalContentDialog.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,6 +30,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Include="TrayIcon.ico" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Drastic.TrayWindow" Version="1.0.9" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -47,13 +53,18 @@
 		<ProjectCapability Include="Msix" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MauiLangEmbed.Controls\MauiLangEmbed.Controls.csproj" />
-	  <ProjectReference Include="..\MauiLangEmbed\MauiLangEmbed.csproj" />
+		<ProjectReference Include="..\MauiLangEmbed.Controls\MauiLangEmbed.Controls.csproj" />
+		<ProjectReference Include="..\MauiLangEmbed\MauiLangEmbed.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="SettingsModalContentDialog.xaml">
+	  <Page Update="LanguageSelectionContentDialog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="SettingsModalContentDialog.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 
 	<!-- 

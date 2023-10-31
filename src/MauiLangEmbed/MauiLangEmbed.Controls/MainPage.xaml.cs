@@ -1,14 +1,15 @@
 using Drastic.Tools;
+using Microsoft.Maui.Platform;
 
 namespace MauiLang;
 
 public partial class MainPage : ContentPage
 {
     private IServiceProvider provider;
-    private INativeNavigation parent;
+    private IModalNavigation parent;
     private ViewModels.TranslationViewModel vm;
 
-    public MainPage(IServiceProvider provider, INativeNavigation parent)
+    public MainPage(IServiceProvider provider, IModalNavigation parent)
     {
         InitializeComponent();
         this.provider = provider;
@@ -30,11 +31,21 @@ public partial class MainPage : ContentPage
         var gearIcon = Microsoft.UI.Xaml.Controls.Symbol.Setting;
         var button = (Microsoft.UI.Xaml.Controls.Button)this.SettingsButton.Handler!.PlatformView;
         button!.Content = new Microsoft.UI.Xaml.Controls.SymbolIcon() { Symbol = gearIcon };
+
+        var languageLabel = (Microsoft.UI.Xaml.Controls.TextBlock)this.LanguageSelectionLabel.Handler!.PlatformView;
+        languageLabel.Tapped += LanguageLabel_Tapped;
 #endif
     }
 
+#if WINDOWS
+    private void LanguageLabel_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+    {
+        this.parent.OpenLanguageSelectionModal();
+    }
+#endif
+
     private void SettingsButton_OnClicked(object sender, EventArgs e)
     {
-        this.parent.OpenModal();
+        this.parent.OpenSettingsModal();
     }
 }

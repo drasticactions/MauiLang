@@ -20,15 +20,9 @@
                         Grid.Column="1"
                         x:Name="SettingsButton" HorizontalOptions="End"/>
             </Grid>
-            <Border Grid.Row="1"
-                    Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5"/>
-                </Border.StrokeShape>
-                <Editor BackgroundColor="Transparent" Placeholder="{x:Static common:Common.EnterTextLabel}" 
-                        x:Name="TopEditor"
-                        Text="{Binding InputText}"/>
-            </Border>
+            <Editor Grid.Row="1" BackgroundColor="Transparent" Placeholder="{x:Static common:Common.EnterTextLabel}" 
+         x:Name="TopEditor"
+         Text="{Binding InputText}"/>
         </Grid>
         <Grid ColumnSpacing="5" Grid.Row="1" ColumnDefinitions="*, Auto, *">
             <Rectangle Grid.Column="0"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
@@ -36,48 +30,41 @@
             <Rectangle Grid.Column="2"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
         </Grid>
         <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5" Grid.Row="2">
-            <Border Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5"/>
-                </Border.StrokeShape>
-                <Grid>
-                    <Grid IsVisible="{Binding IsBusy}" ZIndex="1" Opacity=".9" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
-                        <ActivityIndicator WidthRequest="50" HeightRequest="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
-                    </Grid>
-                    <Grid ZIndex="0" RowDefinitions="Auto, *">
-                        <Grid ColumnDefinitions="*, *" Grid.Row="0">
-                            <Label HorizontalOptions="Start"
-                           VerticalOptions="Center"
-                           Grid.Column="0"
-                           Margin="5"
-                           FontSize="15" x:Name="LanguageSelectionLabel"
-                           FontAttributes="Bold"
-                           Text="{Binding TargetLanguage.Language}">
-                                <!--<Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
-                                </Label.GestureRecognizers>-->
-                            </Label>
-                            <Button Margin="5"
-                            Command="{Binding OpenExtraCommand}"
-                            HorizontalOptions="End"
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            Text="{x:Static common:Common.ExplainLabel}" 
-                            ZIndex="1"
-                    />
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Editor
-                        BackgroundColor="Transparent"
-                        ZIndex="0"
-                        Placeholder="{x:Static common:Common.OutputTextLabel}"
-                        Text="{Binding Result.Translation}"
-                        x:Name="BottomEditor"/>
-
-                        </Grid>
-                    </Grid>
+            <Grid IsVisible="{Binding IsBusy}" ZIndex="1" Opacity=".9" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <ActivityIndicator WidthRequest="50" HeightRequest="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+            <Grid ZIndex="0" RowDefinitions="Auto, *">
+                <Grid ColumnDefinitions="*, *" Grid.Row="0">
+                    <Label HorizontalOptions="Start"
+        VerticalOptions="Center"
+        Grid.Column="0"
+        Margin="5"
+        FontSize="15" x:Name="LanguageSelectionLabel"
+        FontAttributes="Bold"
+        Text="{Binding TargetLanguage.Language}">
+                        <!--<Label.GestureRecognizers>
+                 <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+             </Label.GestureRecognizers>-->
+                    </Label>
+                    <Button Margin="5"
+         Command="{Binding OpenExtraCommand}"
+         HorizontalOptions="End"
+         Grid.Column="1"
+         VerticalOptions="Center"
+         Text="{x:Static common:Common.ExplainLabel}" 
+         ZIndex="1"
+ />
                 </Grid>
-            </Border>
+                <Grid Grid.Row="1">
+                    <Editor
+     BackgroundColor="Transparent"
+     ZIndex="0"
+     Placeholder="{x:Static common:Common.OutputTextLabel}"
+     Text="{Binding Result.Translation}"
+     x:Name="BottomEditor"/>
+
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </ContentPage>

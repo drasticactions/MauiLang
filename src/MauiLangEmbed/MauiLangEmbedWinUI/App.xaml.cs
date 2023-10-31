@@ -1,8 +1,11 @@
 ﻿using Drastic.Services;
+using Drastic.Tray;
+using Drastic.TrayWindow;
 using MauiLang;
 using MauiLang.Services;
 using MauiLang.ViewModels;
 using MauiLangEmbedWinUI.Tools;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Embedding;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -34,6 +37,7 @@ namespace MauiLangEmbedWinUI
     public partial class App : Microsoft.UI.Xaml.Application
     {
         private readonly SingleInstanceDesktopApp _singleInstanceApp;
+        private TrayIcon icon;
 
         public MauiContext? _mauiContext;
 
@@ -71,13 +75,19 @@ namespace MauiLangEmbedWinUI
                     .AddSingleton<TranslationViewModel>()
                     .AddSingleton<SettingsPage>()
                     .AddSingleton<OutputResponseLanguagePage>()
+                    .AddSingleton<LanguageSelectionPage>()
                     .AddSingleton<MainPage>()
                     .AddSingleton<DebugPage>();
                 MauiApp mauiApp = builder.Build();
                 _mauiContext = new MauiContext(mauiApp.Services);
-
-                m_window = new MainWindow(_mauiContext);
-                m_window.Activate();
+                var trayImage = new TrayImage(System.Drawing.Image.FromStream(GetResourceFileContent("TrayIcon.ico")!));
+                this.icon = new TrayIcon("MauiLang", trayImage);
+                this.icon.LeftClicked += (object? sender, TrayClickedEventArgs e) =>
+                {
+                    this.m_window.ToggleVisibility();
+                };
+                m_window = new MainTrayWindow(_mauiContext, this.icon, new TrayWindowOptions(500, 650));
+                //m_window.Activate();
             }
             else
             {
@@ -94,6 +104,23 @@ namespace MauiLangEmbedWinUI
             _singleInstanceApp.Launch(args.Arguments);
         }
 
-        private Microsoft.UI.Xaml.Window m_window;
+        private WinUITrayWindow m_window;
+
+        /// <summary>
+        /// Get Resource File Content via FileName.
+        /// </summary>
+        /// <param name="fileName">Filename.</param>
+        /// <returns>Stream.</returns>
+        public static Stream? GetResourceFileContent(string fileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "MauiLangEmbedWinUI." + fileName;
+            if (assembly is null)
+            {
+                return null;
+            }
+
+            return assembly.GetManifestResourceStream(resourceName);
+        }
     }
 }

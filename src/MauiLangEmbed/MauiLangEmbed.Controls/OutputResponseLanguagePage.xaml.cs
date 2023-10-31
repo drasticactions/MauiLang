@@ -1,6 +1,7 @@
 using Drastic.Tools;
 using MauiLang.Models;
 using MauiLang.ViewModels;
+using Microsoft.Maui.Platform;
 
 namespace MauiLang;
 
@@ -24,7 +25,7 @@ public partial class OutputResponseLanguagePage : ContentPage
 
     private void BackButtonPressed(object sender, EventArgs e)
     {
-        this.parent?.SetPage(this.provider.ResolveWith<SettingsPage>(this.parent));
+        this.parent?.ShowSettingsPage();
     }
 
     private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -32,7 +33,7 @@ public partial class OutputResponseLanguagePage : ContentPage
         if (e.SelectedItem is MauiLangLanguage lang)
         {
             await this.vm.SelectLanguageCommand.ExecuteAsync(lang);
-            this.parent?.SetPage(this.provider.ResolveWith<SettingsPage>(this.parent));
+            this.parent?.ShowSettingsPage();
         }
     }
 }

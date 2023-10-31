@@ -26,6 +26,9 @@
 	  <MauiXaml Update="DebugPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="LanguageSelectionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

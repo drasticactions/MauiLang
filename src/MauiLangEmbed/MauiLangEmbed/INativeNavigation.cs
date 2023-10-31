@@ -12,9 +12,10 @@ namespace MauiLang;
 
 public interface INativeNavigation
 {
-    void OpenModal();
 
-    void CloseModal();
+    void ShowSettingsPage();
 
-    void SetPage(object page);
+    void ShowOutputResponseLanguagePage();
+
+    void ShowLanguageSelectionPage();
 }
