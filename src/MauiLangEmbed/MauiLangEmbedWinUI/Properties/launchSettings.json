@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MauiLangEmbedWinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MauiLangEmbedWinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

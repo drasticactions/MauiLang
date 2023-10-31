@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiLang.MainPage"
+             xmlns:common="clr-namespace:MauiLang.Translations;assembly=MauiLangEmbed"
+             Title="MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid x:Name="MainGrid"
+      RowDefinitions="*, Auto, 2*">
+        <Grid Margin="5" Grid.RowDefinitions="Auto, *" RowSpacing="5">
+            <Grid x:Name="SettingsRow" ColumnDefinitions="*, Auto">
+                <Label FontAttributes="Bold" VerticalOptions="Center" Text="{x:Static common:Common.AppName}"/>
+                <Button Text="{x:Static common:Common.SettingsLabel}"
+                        Clicked="SettingsButton_OnClicked"
+                        Grid.Column="1"
+                        x:Name="SettingsButton" HorizontalOptions="End"/>
+            </Grid>
+            <Border Grid.Row="1"
+                    Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Editor BackgroundColor="Transparent" Placeholder="{x:Static common:Common.EnterTextLabel}" 
+                        x:Name="TopEditor"
+                        Text="{Binding InputText}"/>
+            </Border>
+        </Grid>
+        <Grid ColumnSpacing="5" Grid.Row="1" ColumnDefinitions="*, Auto, *">
+            <Rectangle Grid.Column="0"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+            <Button Grid.Column="1" HorizontalOptions="Center" x:Name="TranslateButton" Command="{Binding TranslateCommand}" Text="↓" />
+            <Rectangle Grid.Column="2"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+        </Grid>
+        <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5" Grid.Row="2">
+            <Border Background="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Grid>
+                    <Grid IsVisible="{Binding IsBusy}" ZIndex="1" Opacity=".9" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                        <ActivityIndicator WidthRequest="50" HeightRequest="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Grid>
+                    <Grid ZIndex="0" RowDefinitions="Auto, *">
+                        <Grid ColumnDefinitions="*, *" Grid.Row="0">
+                            <Label HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           Grid.Column="0"
+                           Margin="5"
+                           FontSize="15" x:Name="LanguageSelectionLabel"
+                           FontAttributes="Bold"
+                           Text="{Binding TargetLanguage.Language}">
+                                <!--<Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>-->
+                            </Label>
+                            <Button Margin="5"
+                            Command="{Binding OpenExtraCommand}"
+                            HorizontalOptions="End"
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Text="{x:Static common:Common.ExplainLabel}" 
+                            ZIndex="1"
+                    />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Editor
+                        BackgroundColor="Transparent"
+                        ZIndex="0"
+                        Placeholder="{x:Static common:Common.OutputTextLabel}"
+                        Text="{Binding Result.Translation}"
+                        x:Name="BottomEditor"/>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
