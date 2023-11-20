@@ -75,8 +75,8 @@ public class AppDelegate : TrayAppDelegate, IModalNavigation, INativeNavigation
 
         // Temp logo.
         var trayImage = new TrayImage(UIImage.GetSystemImage("bubble.left.and.text.bubble.right.fill")!);
-        var icon = new Drastic.Tray.TrayIcon(MauiLang.Translations.Common.AppName, trayImage);
         menuItems.Add(new TrayMenuItem(MauiLang.Translations.Common.QuitLabel, null, async () => { Drastic.TrayWindow.NSApplication.Terminate(); }, "q"));
+        var icon = new Drastic.Tray.TrayIcon(MauiLang.Translations.Common.AppName, trayImage, menuItems);
         icon.RightClicked += (object? sender, TrayClickedEventArgs e) => icon.OpenMenu();
 
         MauiApp mauiApp = builder.Build();
