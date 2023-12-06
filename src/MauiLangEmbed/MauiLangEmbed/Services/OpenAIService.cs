@@ -7,6 +7,8 @@ using Drastic.Services;
 using MauiLang.Models;
 using Microsoft.Extensions.Logging;
 using OpenAI_API;
+using OpenAI_API.Chat;
+using OpenAI_API.Models;
 
 namespace MauiLang.Services;
 
@@ -41,7 +43,10 @@ public class OpenAIService
         }
 
         var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
-        var chat = api.Chat.CreateConversation();
+        var chat = api.Chat.CreateConversation(new ChatRequest()
+        {
+            Model = Model.GPT4,
+        });
         var language = this.settings.TargetLanguage ?? new MauiLangLanguage();
         var responseLanguage = this.settings.OutputResponseLanguage ?? new MauiLangLanguage();
         var langOutput = language.LanguageCode;
@@ -81,7 +86,10 @@ public class OpenAIService
         }
 
         var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
-        var chat = api.Chat.CreateConversation();
+        var chat = api.Chat.CreateConversation(new ChatRequest()
+        {
+            Model = Model.GPT4,
+        });
 
         var cultureInfo = CultureInfo.GetCultureInfo(result.TranslateTo);
         var responseL = CultureInfo.GetCultureInfo(result.RespondIn);
