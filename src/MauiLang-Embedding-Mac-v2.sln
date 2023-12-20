@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiLangEmbed", "MauiLangEm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiLangEmbed.Controls", "MauiLangEmbedV2\MauiLangEmbed.Controls\MauiLangEmbed.Controls.csproj", "{8AB4006C-57E1-4AE9-9CA3-A39F0F8E7D5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiLangEmbedMacCatalyst", "MauiLangEmbedV2\MauiLangEmbedMacCatalyst\MauiLangEmbedMacCatalyst.csproj", "{3F8EC48D-D3F8-4BA2-8E07-CECA584C2291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{8AB4006C-57E1-4AE9-9CA3-A39F0F8E7D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB4006C-57E1-4AE9-9CA3-A39F0F8E7D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB4006C-57E1-4AE9-9CA3-A39F0F8E7D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F8EC48D-D3F8-4BA2-8E07-CECA584C2291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F8EC48D-D3F8-4BA2-8E07-CECA584C2291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F8EC48D-D3F8-4BA2-8E07-CECA584C2291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F8EC48D-D3F8-4BA2-8E07-CECA584C2291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiLang.OutputResponseLanguagePage"
+             xmlns:common="clr-namespace:MauiLang.Translations;assembly=MauiLangEmbed"
+             Title="OutputResponseLanguagePage">
+    <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
+        <Label HorizontalOptions="Center" Margin="5" FontAttributes="Bold" FontSize="15" Text="{x:Static common:Common.LanguagesLabel}"></Label>
+        <ListView SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label FontSize="16"
+                            Margin="15"
+                            VerticalOptions="Center"
+                            Text="{Binding Language}"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button  Grid.Row="2" Margin="5" Text="{x:Static common:Common.GoBackLabel}" Clicked="BackButtonPressed" />
+    </Grid>
+</ContentPage>

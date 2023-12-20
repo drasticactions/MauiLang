@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiLang.MainPage"
+             xmlns:common="clr-namespace:MauiLang.Translations;assembly=MauiLangEmbed"
+             Title="{x:Static common:Common.TranslateLabel}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid x:Name="MainGrid"
+      RowDefinitions="*, Auto, 2*">
+        <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5">
+            <Editor Grid.Row="1" BackgroundColor="Transparent" Placeholder="{x:Static common:Common.EnterTextLabel}" 
+         x:Name="TopEditor"
+         Text="{Binding InputText}"/>
+        </Grid>
+        <Grid ColumnSpacing="5" Grid.Row="1" ColumnDefinitions="*, Auto, *">
+            <Rectangle Grid.Column="0"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+            <Button Grid.Column="1" HorizontalOptions="Center" x:Name="TranslateButton" Command="{Binding TranslateCommand}" Text="↓" />
+            <Rectangle Grid.Column="2"  VerticalOptions="Center" HeightRequest="2" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}"/>
+        </Grid>
+        <Grid Margin="5" Grid.RowDefinitions="*" RowSpacing="5" Grid.Row="2">
+            <Grid IsVisible="{Binding IsBusy}" ZIndex="1" Opacity=".9" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}">
+                <ActivityIndicator WidthRequest="50" HeightRequest="50" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Grid>
+            <Grid ZIndex="0" RowDefinitions="Auto, *">
+                <Grid ColumnDefinitions="*, *" Grid.Row="0">
+                    <Label HorizontalOptions="Start"
+        VerticalOptions="Center"
+        Grid.Column="0"
+        Margin="5"
+        FontSize="15" x:Name="LanguageSelectionLabel"
+        FontAttributes="Bold"
+        Text="{Binding TargetLanguage.Language}">
+                        <!--<Label.GestureRecognizers>
+                 <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+             </Label.GestureRecognizers>-->
+                    </Label>
+                    <Button Margin="5"
+                           x:Name="FavoriteButton"
+                            HorizontalOptions="End"
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Text="{x:Static common:Common.FavoriteLabel}" 
+                            ZIndex="1"
+                    />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Editor
+     BackgroundColor="Transparent"
+     ZIndex="0"
+     Placeholder="{x:Static common:Common.OutputTextLabel}"
+     Text="{Binding Result.TranslatedText}"
+     x:Name="BottomEditor"/>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
