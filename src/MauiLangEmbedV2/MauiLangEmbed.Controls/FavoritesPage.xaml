@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MauiLangEmbed.Controls.Views"
+             xmlns:xct="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
+             xmlns:common="clr-namespace:MauiLang.Translations;assembly=MauiLangEmbed"
+             xmlns:controls="clr-namespace:MauiLangEmbed.Controls"
+             Title="{x:Static common:Common.FavoriteLabel}"
+             x:Class="MauiLangEmbed.Controls.FavoritesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <xct:VirtualListView Adapter="{Binding Items}">
+        <xct:VirtualListView.ItemTemplate>
+            <DataTemplate>
+                <controls:FavoritesViewCell TranslationLog="{Binding .}" />
+            </DataTemplate>
+        </xct:VirtualListView.ItemTemplate>
+        <xct:VirtualListView.EmptyView>
+            <Grid VerticalOptions="Center" HorizontalOptions="Center" RowDefinitions="Auto">
+                <views:FavoritesImage VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="300" MaximumHeightRequest="300"/>
+            </Grid>
+        </xct:VirtualListView.EmptyView>
+    </xct:VirtualListView>
+</ContentPage>

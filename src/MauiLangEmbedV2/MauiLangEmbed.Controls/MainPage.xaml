@@ -44,6 +44,7 @@
                             HorizontalOptions="End"
                             Grid.Column="1"
                             VerticalOptions="Center"
+                            Command="{Binding AddFavoriteCommand}"
                             Text="{x:Static common:Common.FavoriteLabel}" 
                             ZIndex="1"
                     />

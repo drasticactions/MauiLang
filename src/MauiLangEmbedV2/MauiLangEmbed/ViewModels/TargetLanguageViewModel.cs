@@ -4,6 +4,7 @@
 
 using Drastic.Tools;
 using MauiLang.Models;
+using Microsoft.Maui.Adapters;
 
 namespace MauiLang.ViewModels;
 
@@ -22,7 +23,7 @@ public class TargetLanguageViewModel : MauiLangViewModel
         : base(services)
     {
         this.vm = services.GetRequiredService<TranslationViewModel>();
-        this.Languages = MauiLangLanguage.GenerateMauiLangLangauages();
+        this.Languages = new VirtualListViewAdapter<MauiLangLanguage>(MauiLangLanguage.GenerateMauiLangLangauages());
         this.SelectLanguageCommand =
             new AsyncCommand<MauiLangLanguage>(this.SelectLanguageAsync, null, this.ErrorHandler);
     }
@@ -30,7 +31,7 @@ public class TargetLanguageViewModel : MauiLangViewModel
     /// <summary>
     /// Gets the list of available languages.
     /// </summary>
-    public IReadOnlyList<MauiLangLanguage> Languages { get; }
+    public VirtualListViewAdapter<MauiLangLanguage> Languages { get; }
 
     /// <summary>
     /// Gets the command to select a language.

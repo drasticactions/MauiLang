@@ -362,7 +362,7 @@ public class MauiLangLanguage
 
     public string LanguageCode { get; set;  }
 
-    public static IReadOnlyList<MauiLangLanguage> GenerateMauiLangLangauages()
+    public static IList<MauiLangLanguage> GenerateMauiLangLangauages()
     {
         var list = new List<MauiLangLanguage>() { };
 

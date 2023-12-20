@@ -25,13 +25,16 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     {
         this.targetLanguage = this.Settings.TargetLanguage ?? new MauiLangLanguage();
         this.TranslateCommand = new AsyncCommand(this.TranslateAsync,
-            () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this);
+            () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
+        this.AddFavoriteCommand = new AsyncCommand (this.AddFavoriteAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this.ErrorHandler);
     }
 
     /// <summary>
     /// Gets the command to translate the input text.
     /// </summary>
     public AsyncCommand TranslateCommand { get; }
+    
+    public AsyncCommand AddFavoriteCommand { get; }
 
     /// <summary>
     /// Gets or sets the target language for translation.
@@ -82,6 +85,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     {
         base.RaiseCanExecuteChanged();
         this.TranslateCommand.RaiseCanExecuteChanged();
+        this.AddFavoriteCommand.RaiseCanExecuteChanged();
     }
 
     /// <summary>
@@ -113,5 +117,16 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
         this.Result = await this.OpenAI.GenerateTextAsync(this.InputText);
         this.IsBusy = false;
         this.RaiseCanExecuteChanged();
+    }
+
+    private async Task AddFavoriteAsync()
+    {
+        if (this.Result is null)
+        {
+            return;
+        }
+
+        this.Database.AddFavorite(this.Result);
+        this.Result = null;
     }
 }

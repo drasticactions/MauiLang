@@ -3,6 +3,7 @@ using Foundation;
 using MauiLang;
 using MauiLang.Services;
 using MauiLang.ViewModels;
+using MauiLangEmbed.Controls;
 using MauiLangEmbed.Controls.Views;
 using Microsoft.Maui.Embedding;
 using UIKit;
@@ -44,19 +45,20 @@ public class AppDelegate : UIApplicationDelegate
 
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder.UseMauiEmbedding<Microsoft.Maui.Controls.Application>();
+        builder.UseVirtualListView();
         builder.Services.AddSingleton<IErrorHandlerService, MacCatalystErrorHandler>()
             .AddSingleton<IAppDispatcher, MacCatalystAppDispatcher>()
             .AddSingleton<OpenAIService>()
             .AddSingleton<DatabaseService>(databaseService)
             .AddSingleton<Settings>(settings)
-            .AddSingleton<OutputResponseLanguageViewModel>()
             .AddSingleton<SettingsViewModel>()
             .AddSingleton<TargetLanguageViewModel>()
             .AddSingleton<TranslationViewModel>()
             .AddSingleton<SettingsPage>()
-            .AddSingleton<OutputResponseLanguagePage>()
             .AddSingleton<LanguageSelectionPage>()
             .AddSingleton<MainPage>()
+            .AddSingleton<FavoritesTranslationViewModel>()
+            .AddSingleton<FavoritesPage>()
             .AddSingleton<DebugPage>();
         // create a new window instance based on the screen size
         Window = new UIWindow(UIScreen.MainScreen.Bounds);

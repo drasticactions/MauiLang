@@ -193,6 +193,7 @@ public class SidebarUIViewController : UIViewController, IUICollectionViewDelega
                 var cfg = UIListContentConfiguration.SidebarCellConfiguration;
 #endif
                 cfg.Text = sidebarItem.Title;
+                cfg.Image = sidebarItem.UIImage;
                 // if (sidebarItem.SystemIcon is not null)
                 // {
                 //     cfg.Image = UIImage.GetSystemImage(sidebarItem.SystemIcon);

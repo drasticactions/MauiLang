@@ -11,6 +11,4 @@ public class TranslationLog
     public string TranslatedText { get; set; }
 
     public MauiLangLanguage TargetLanguage { get; set; }
-
-    public MauiLangLanguage OutputResponseLanguage { get; set; }
 }

@@ -9,10 +9,11 @@ namespace MauiLangEmbed.Controls.Views;
 public class MainViewController : UISplitViewController
 {
     private SidebarUIViewController sidebar;
+    private UIViewController debugViewController;
     private UIViewController mainViewController;
     private UIViewController languageSelectionViewController;
     private UIViewController settingsViewController;
-
+    private UIViewController favoritesViewController;
     private MauiContext context;
     private SidebarUIViewControllerOptions options;
 
@@ -29,6 +30,10 @@ public class MainViewController : UISplitViewController
 
         var settingsView = context.Services.ResolveWith<SettingsPage>(this.CloseModal);
         this.settingsViewController = settingsView.ToUIViewController(this.context);
+        var debugView = context.Services.ResolveWith<DebugPage>();
+        this.debugViewController = debugView.ToUIViewController(this.context);
+        var favoritesView = context.Services.ResolveWith<FavoritesPage>();
+        this.favoritesViewController = favoritesView.ToUIViewController(this.context);
         this.options = new SidebarUIViewControllerOptions();
         this.options.HeaderItems.Add(new SidebarHeaderItem(MauiLang.Translations.Common.TranslateLabel,
             new List<SidebarItem>
@@ -39,10 +44,31 @@ public class MainViewController : UISplitViewController
                 {
                     OnSelected = () =>
                     {
+                        this.SetViewController(null, UISplitViewControllerColumn.Secondary);
                         this.SetViewController(this.mainViewController, UISplitViewControllerColumn.Secondary);
                     },
                 },
+                new(
+                    MauiLang.Translations.Common.FavoriteLabel,
+                    UIImage.GetSystemImage("star.circle"))
+                {
+                    OnSelected = () =>
+                    {
+                        this.SetViewController(null, UISplitViewControllerColumn.Secondary);
+                        this.SetViewController(this.favoritesViewController, UISplitViewControllerColumn.Secondary);
+                    },
+                },
             }));
+        this.options.MenuItemsBelowHeader.Add(new(
+            "Debug",
+            UIImage.GetSystemImage("ant.circle"))
+        {
+            OnSelected = () =>
+            {
+                this.SetViewController(null, UISplitViewControllerColumn.Secondary);
+                this.SetViewController(this.debugViewController, UISplitViewControllerColumn.Secondary);
+            },
+        });
         this.sidebar = new SidebarUIViewController(this.options);
         this.sidebar.NavigationItem.SetRightBarButtonItem(
             new UIBarButtonItem(

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xct:VirtualViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
+             x:Class="MauiLangEmbed.Controls.FavoritesViewCell">
+    <xct:VirtualViewCell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+            <Color x:Key="PrimaryColorTranslation">#4FA4A8</Color>
+        </ResourceDictionary>
+    </xct:VirtualViewCell.Resources>
+    <Border Margin="5" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},Dark={StaticResource DarkPrimaryColor}}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="5"/>
+        </Border.StrokeShape>
+        <Grid RowSpacing="5" RowDefinitions="Auto, 2, Auto, Auto" Margin="5">
+            <Label x:Name="OriginalTextLabel" Text="{Binding OriginalText}"></Label>
+            <Rectangle Grid.Row="1" HeightRequest="2" BackgroundColor="{AppThemeBinding Dark={StaticResource LightPrimaryColor},Light={StaticResource DarkPrimaryColor}}"/>
+            <Grid RowSpacing="3" RowDefinitions="Auto, Auto" Grid.Row="2">
+                <Label Text="{Binding TargetLanguage.Language}"/>
+                <Label x:Name="TranslatedTextLabel" Grid.Row="1" TextColor="{StaticResource PrimaryColorTranslation}" Text="{Binding TranslatedText}"/>
+            </Grid>
+            <Label Grid.Row="3" Text="{Binding Date}" HorizontalOptions="End"/>
+        </Grid>
+    </Border>
+</xct:VirtualViewCell>

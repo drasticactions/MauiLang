@@ -24,7 +24,6 @@ public class SettingsViewModel : MauiLangViewModel
         : base(services)
     {
         this.openAIToken = this.Settings.OpenAIToken ?? string.Empty;
-        this.outputResponseLanguage = this.Settings.OutputResponseLanguage ?? new MauiLangLanguage();
     }
 
     /// <summary>
@@ -37,20 +36,6 @@ public class SettingsViewModel : MauiLangViewModel
         {
             this.SetProperty(ref this.openAIToken, value);
             this.Settings.OpenAIToken = value;
-            this.Database.SetSettings(this.Settings);
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the output response language.
-    /// </summary>
-    public MauiLangLanguage OutputResponseLanguage
-    {
-        get => this.outputResponseLanguage;
-        set
-        {
-            this.SetProperty(ref this.outputResponseLanguage, value);
-            this.Settings.OutputResponseLanguage = value;
             this.Database.SetSettings(this.Settings);
         }
     }

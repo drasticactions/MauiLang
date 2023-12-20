@@ -3,21 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiLang.LanguageSelectionPage"
              xmlns:common="clr-namespace:MauiLang.Translations;assembly=MauiLangEmbed"
+             xmlns:xct="clr-namespace:Microsoft.Maui.Controls;assembly=VirtualListView"
              Title="LanguageSelectionPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryColor">#f2f2f7</Color>
+            <Color x:Key="DarkPrimaryColor">#39393d</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid RowSpacing="5" RowDefinitions="Auto, *, Auto">
         <Label HorizontalOptions="Center" Margin="5" FontAttributes="Bold" FontSize="15" Text="{x:Static common:Common.LanguagesLabel}"></Label>
-        <ListView x:Name="ListView" SelectionMode="Single" ItemSelected="ListView_OnItemSelected" ItemsSource="{Binding Languages}" Grid.Row="1">
-            <ListView.ItemTemplate>
+        <xct:VirtualListView x:Name="ListView" SelectionMode="Single" OnSelectedItemsChanged="ListView_OnOnSelectedItemsChanged" Adapter="{Binding Languages}" Grid.Row="1">
+            <xct:VirtualListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <Grid RowDefinitions="Auto, 2">
                         <Label FontSize="16"
-                           Margin="15"
-                           VerticalOptions="Center"
-                           Text="{Binding Language}"></Label>
-                    </ViewCell>
+                               Margin="10"
+                               VerticalOptions="Center"
+                               Text="{Binding Language}"></Label>
+                        <Rectangle Grid.Row="1" HeightRequest="2" BackgroundColor="{AppThemeBinding Dark={StaticResource LightPrimaryColor},Light={StaticResource DarkPrimaryColor}}"/>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </xct:VirtualListView.ItemTemplate>
+        </xct:VirtualListView>
         <Button Grid.Row="2" Margin="5" Text="{x:Static common:Common.CloseLabel}" Clicked="CloseButtonClicked" />
     </Grid>
 </ContentPage>

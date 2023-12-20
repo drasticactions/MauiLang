@@ -25,9 +25,4 @@ public class Settings
     /// Gets or sets the target language.
     /// </summary>
     public MauiLangLanguage? TargetLanguage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the output response language.
-    /// </summary>
-    public MauiLangLanguage? OutputResponseLanguage { get; set; }
 }

@@ -48,9 +48,7 @@ public class OpenAIService
             Model = Model.GPT4,
         });
         var language = this.settings.TargetLanguage ?? new MauiLangLanguage();
-        var responseLanguage = this.settings.OutputResponseLanguage ?? new MauiLangLanguage();
         var langOutput = language.LanguageCode;
-        var responseLang = responseLanguage.LanguageCode;
         var cultureInfo = CultureInfo.GetCultureInfo(langOutput);
         var message =
             $"You are a translator that will translate the following dialog into {cultureInfo.EnglishName}. You will translate the text as natural as you can. Match the tone of the given sentence.";
@@ -60,6 +58,6 @@ public class OpenAIService
         this.logger?.LogDebug(text);
         var result = await chat.GetResponseFromChatbotAsync();
         this.logger?.LogDebug(result);
-        return new TranslationLog() { Date = DateTime.UtcNow, TranslatedText = result, OutputResponseLanguage = responseLanguage, TargetLanguage = language, OriginalText = text };
+        return new TranslationLog() { Date = DateTime.UtcNow, TranslatedText = result, TargetLanguage = language, OriginalText = text };
     }
 }

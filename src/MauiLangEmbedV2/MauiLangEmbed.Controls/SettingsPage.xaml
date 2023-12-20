@@ -13,11 +13,6 @@
                         <Label HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" Text="OpenAI Token: " />
                         <Entry HorizontalOptions="Fill" Grid.Row="1" Text="{Binding OpenAIToken}" IsPassword="True"/>
                     </Grid>
-                    <Grid Grid.Row="1" Margin="5" RowSpacing="2" RowDefinitions="Auto, Auto">
-                        <Label HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" Text="{x:Static common:Common.OutputResponseLabel}" />
-                        <Label x:Name="LanguageSelectionLabel" Grid.Row="1" FontSize="12" Text="{Binding OutputResponseLanguage.Language}">
-                        </Label>
-                    </Grid>
                 </Grid>
             </ScrollView>
             <Button

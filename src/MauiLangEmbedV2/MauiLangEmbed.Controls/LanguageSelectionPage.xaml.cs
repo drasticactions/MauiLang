@@ -21,12 +21,14 @@ public partial class LanguageSelectionPage : ContentPage
     {
         this.closeAction?.Invoke();
     }
-
-    private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+    
+    private async void ListView_OnOnSelectedItemsChanged(object? sender, SelectedItemsChangedEventArgs e)
     {
-        if (e.SelectedItem is MauiLangLanguage lang)
+        var position = e.NewSelection.First();
+        var item = this.vm.Languages.GetItem(position.SectionIndex, position.ItemIndex);
+        if (item is not null)
         {
-            await this.vm.SelectLanguageCommand.ExecuteAsync(lang);
+            await this.vm.SelectLanguageCommand.ExecuteAsync(item);
             this.closeAction?.Invoke();
             this.ListView.SelectedItem = null;
         }
