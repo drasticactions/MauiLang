@@ -14,16 +14,25 @@
             <Color x:Key="DarkPrimaryColor">#39393d</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <xct:VirtualListView Adapter="{Binding Items}">
-        <xct:VirtualListView.ItemTemplate>
-            <DataTemplate>
-                <controls:FavoritesViewCell TranslationLog="{Binding .}" />
-            </DataTemplate>
-        </xct:VirtualListView.ItemTemplate>
-        <xct:VirtualListView.EmptyView>
-            <Grid VerticalOptions="Center" HorizontalOptions="Center" RowDefinitions="Auto">
-                <views:FavoritesImage VerticalOptions="Center" HorizontalOptions="Center" MaximumWidthRequest="300" MaximumHeightRequest="300"/>
+    <Grid>
+        <Grid ZIndex="99" IsVisible="{Binding HasNoItems}" VerticalOptions="Center" HorizontalOptions="Center" RowSpacing="8" RowDefinitions="Auto, Auto">
+            <Border MaximumWidthRequest="200" MaximumHeightRequest="200">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <views:FavoritesImage MaximumWidthRequest="200" MaximumHeightRequest="200"/>
+            </Border>
+            <Grid RowSpacing="5" RowDefinitions="Auto, Auto" Grid.Row="1">
+                <Label Grid.Row="0" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="18" Text="{x:Static common:Common.NoFavoritesLabel}"/>
+                <Label Grid.Row="1" HorizontalTextAlignment="Center" FontSize="16" Text="{x:Static common:Common.NoFavoritesExplainLabel}"/>
             </Grid>
-        </xct:VirtualListView.EmptyView>
-    </xct:VirtualListView>
+        </Grid>
+        <xct:VirtualListView Adapter="{Binding Items}">
+            <xct:VirtualListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:FavoritesViewCell TranslationLog="{Binding .}" />
+                </DataTemplate>
+            </xct:VirtualListView.ItemTemplate>
+        </xct:VirtualListView>
+    </Grid>
 </ContentPage>

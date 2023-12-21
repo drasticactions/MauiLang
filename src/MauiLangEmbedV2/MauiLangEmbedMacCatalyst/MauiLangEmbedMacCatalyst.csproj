@@ -12,6 +12,7 @@
         <SupportedOSPlatformVersion>15.0</SupportedOSPlatformVersion>
         <UseMaui>true</UseMaui>
         <HybridGlobalization>true</HybridGlobalization>
+        <AssemblyName>MauiLang</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\MauiLangEmbed.Controls\MauiLangEmbed.Controls.csproj"/>

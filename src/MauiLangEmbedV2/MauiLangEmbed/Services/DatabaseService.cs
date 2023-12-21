@@ -58,6 +58,7 @@ public class DatabaseService
         lock (this._db)
         {
             this.Favorites.Delete(log.Id);
+            this.FavoritesChanged?.Invoke(this, new UpdateFavoritesEventArgs(log, ItemEventType.Remove));
         }
     }
 

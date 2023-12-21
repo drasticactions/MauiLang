@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MauiLang.Models;
+using MauiLang.Services;
 
 namespace MauiLangEmbed.Controls;
 
@@ -23,6 +24,12 @@ public partial class FavoritesViewCell : VirtualViewCell
 #endif
     }
 
+    public TranslationLog TranslationLog
+    {
+        get => (TranslationLog)this.GetValue(TranslationLogProperty);
+        set => this.SetValue(TranslationLogProperty, value);
+    }
+
     public static readonly BindableProperty TranslationLogProperty = BindableProperty.Create(
         nameof(TranslationLog),
         typeof(TranslationLog),
@@ -34,12 +41,18 @@ public partial class FavoritesViewCell : VirtualViewCell
     {
         if (bindable is FavoritesViewCell cell)
         {
-            cell.BindingContext = newvalue;
+            cell.BindingContext = cell.TranslationLog = (TranslationLog)newvalue;
         }
     }
 
     protected override void OnHandlerChanged()
     {
         base.OnHandlerChanged();
+    }
+
+    private void Button_OnClicked(object? sender, EventArgs e)
+    {
+        this.Handler!.MauiContext!.Services.GetRequiredService<DatabaseService>()
+            .RemoveFavorite(this.TranslationLog);
     }
 }

@@ -60,29 +60,15 @@ public class AppDelegate : UIApplicationDelegate
             .AddSingleton<FavoritesTranslationViewModel>()
             .AddSingleton<FavoritesPage>()
             .AddSingleton<DebugPage>();
-        // create a new window instance based on the screen size
-        Window = new UIWindow(UIScreen.MainScreen.Bounds);
-        Window.LargeContentTitle = MauiLang.Translations.Common.AppName;
-        builder.Services.Add(new Microsoft.Extensions.DependencyInjection.ServiceDescriptor(typeof(UIWindow), Window));
+
         MauiApp mauiApp = builder.Build();
-        _mauiContext = new MauiContext(mauiApp.Services);
+        this._mauiContext = new MauiContext(mauiApp.Services);
 
-        // create a UIViewController with a single UILabel
-        var vc = new MainViewController(_mauiContext);
-        Window.RootViewController = vc;
+        this.Window = new MainUIWindow(_mauiContext, UIScreen.MainScreen.Bounds);
+        this.Window.LargeContentTitle = MauiLang.Translations.Common.AppName;
 
-        // make the window visible
-        Window.MakeKeyAndVisible();
+        this.Window.MakeKeyAndVisible();
 
         return true;
-    }
-    
-    [System.Runtime.InteropServices.DllImport("/System/Library/Frameworks/Foundation.framework/Foundation")]
-    public static extern IntPtr NSHomeDirectory();
-
-    public static string ContainerDirectory {
-        get {
-            return ((NSString)ObjCRuntime.Runtime.GetNSObject(NSHomeDirectory())).ToString ();
-        }
     }
 }

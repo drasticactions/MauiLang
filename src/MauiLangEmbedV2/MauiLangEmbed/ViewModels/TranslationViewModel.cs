@@ -25,7 +25,7 @@ public class TranslationViewModel : MauiLangViewModel, IErrorHandlerService
     {
         this.targetLanguage = this.Settings.TargetLanguage ?? new MauiLangLanguage();
         this.TranslateCommand = new AsyncCommand(this.TranslateAsync,
-            () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText), this.Dispatcher, this.ErrorHandler);
+            () => !this.IsBusy && !string.IsNullOrEmpty(this.InputText) && !string.IsNullOrEmpty(this.Settings.OpenAIToken), this.Dispatcher, this.ErrorHandler);
         this.AddFavoriteCommand = new AsyncCommand (this.AddFavoriteAsync, () => !this.IsBusy && this.Result is not null, this.Dispatcher, this.ErrorHandler);
     }
 

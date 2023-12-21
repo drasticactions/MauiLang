@@ -159,4 +159,10 @@
   <data name="FavoriteLabel" xml:space="preserve">
     <value>お気に入り</value>
   </data>
+  <data name="NoFavoritesLabel" xml:space="preserve">
+    <value>お気に入りなし</value>
+  </data>
+  <data name="NoFavoritesExplainLabel" xml:space="preserve">
+    <value>お気に入り翻訳がここに表示されます。</value>
+  </data>
 </root>

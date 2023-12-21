@@ -159,4 +159,10 @@
   <data name="FavoriteLabel" xml:space="preserve">
     <value>Favorite</value>
   </data>
+  <data name="NoFavoritesLabel" xml:space="preserve">
+    <value>No Favorites</value>
+  </data>
+  <data name="NoFavoritesExplainLabel" xml:space="preserve">
+    <value>Your favorites will appear here.</value>
+  </data>
 </root>

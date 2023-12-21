@@ -4,6 +4,6 @@ public class FavoritesImage : Image
 {
     public FavoritesImage()
     {
-        this.Source = ImageSource.FromResource("MauiLangEmbed.Controls.Resources.dotnet_bot.png");
+        this.Source = ImageSource.FromResource("MauiLangEmbed.Controls.Resources.appicon.png");
     }
 }

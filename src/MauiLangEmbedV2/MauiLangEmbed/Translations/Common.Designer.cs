@@ -128,5 +128,17 @@ namespace MauiLang.Translations {
                 return ResourceManager.GetString("FavoriteLabel", resourceCulture);
             }
         }
+        
+        public static string NoFavoritesLabel {
+            get {
+                return ResourceManager.GetString("NoFavoritesLabel", resourceCulture);
+            }
+        }
+        
+        public static string NoFavoritesExplainLabel {
+            get {
+                return ResourceManager.GetString("NoFavoritesExplainLabel", resourceCulture);
+            }
+        }
     }
 }

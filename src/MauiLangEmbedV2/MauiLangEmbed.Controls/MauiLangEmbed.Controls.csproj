@@ -25,6 +25,8 @@
     <ItemGroup>
       <None Remove="Resources\dotnet_bot.png" />
       <EmbeddedResource Include="Resources\dotnet_bot.png" />
+      <None Remove="Resources\appicon.png" />
+      <EmbeddedResource Include="Resources\appicon.png" />
     </ItemGroup>
 
 </Project>

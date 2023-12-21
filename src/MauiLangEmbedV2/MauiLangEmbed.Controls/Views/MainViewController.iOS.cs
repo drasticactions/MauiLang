@@ -1,5 +1,6 @@
 using Drastic.Tools;
 using MauiLang;
+using MauiLang.Translations;
 using MauiLangEmbed.Controls.Models;
 using Microsoft.Maui.Platform;
 using UIKit;
@@ -9,7 +10,6 @@ namespace MauiLangEmbed.Controls.Views;
 public class MainViewController : UISplitViewController
 {
     private SidebarUIViewController sidebar;
-    private UIViewController debugViewController;
     private UIViewController mainViewController;
     private UIViewController languageSelectionViewController;
     private UIViewController settingsViewController;
@@ -22,6 +22,7 @@ public class MainViewController : UISplitViewController
     {
         this.Title = MauiLang.Translations.Common.AppName;
         this.context = context;
+
         var mainView = context.Services.ResolveWith<MainPage>(this.OpenLanguageModal);
         this.mainViewController = mainView.ToUIViewController(this.context);
 
@@ -30,12 +31,13 @@ public class MainViewController : UISplitViewController
 
         var settingsView = context.Services.ResolveWith<SettingsPage>(this.CloseModal);
         this.settingsViewController = settingsView.ToUIViewController(this.context);
-        var debugView = context.Services.ResolveWith<DebugPage>();
-        this.debugViewController = debugView.ToUIViewController(this.context);
+
         var favoritesView = context.Services.ResolveWith<FavoritesPage>();
         this.favoritesViewController = favoritesView.ToUIViewController(this.context);
+
         this.options = new SidebarUIViewControllerOptions();
-        this.options.HeaderItems.Add(new SidebarHeaderItem(MauiLang.Translations.Common.TranslateLabel,
+        this.options.HeaderItems.Add(new SidebarHeaderItem(
+            MauiLang.Translations.Common.TranslateLabel,
             new List<SidebarItem>
             {
                 new(
@@ -59,65 +61,39 @@ public class MainViewController : UISplitViewController
                     },
                 },
             }));
+
         this.options.MenuItemsBelowHeader.Add(new(
-            "Debug",
-            UIImage.GetSystemImage("ant.circle"))
+            Common.SettingsLabel,
+            UIImage.GetSystemImage("gearshape"))
         {
             OnSelected = () =>
             {
                 this.SetViewController(null, UISplitViewControllerColumn.Secondary);
-                this.SetViewController(this.debugViewController, UISplitViewControllerColumn.Secondary);
+                this.SetViewController(this.settingsViewController, UISplitViewControllerColumn.Secondary);
             },
         });
+
         this.sidebar = new SidebarUIViewController(this.options);
-        this.sidebar.NavigationItem.SetRightBarButtonItem(
-            new UIBarButtonItem(
-                UIImage.GetSystemImage("gearshape"),
-                UIBarButtonItemStyle.Plain,
-                (sender, args) => { this.OpenSettingsModal(); }),
-            false);
         this.sidebar.OnItemSelected += this.SidebarOnOnItemSelected;
         this.SetViewController(this.sidebar, UISplitViewControllerColumn.Primary);
-        //this.SetViewController(this.testCollectionViewController, UISplitViewControllerColumn.Secondary);
+        this.PreferredPrimaryColumnWidth = 200;
 #if !TVOS
         this.PrimaryBackgroundStyle = UISplitViewControllerBackgroundStyle.Sidebar;
 #endif
     }
 
-    private void OpenSettingsModal()
+    private async void OpenLanguageModal()
     {
-        this.PresentViewControllerAsync(this.settingsViewController, true);
+        await this.PresentViewControllerAsync(this.languageSelectionViewController, true);
     }
 
-
-    private void OpenLanguageModal()
+    private async void CloseModal()
     {
-        this.PresentViewControllerAsync(this.languageSelectionViewController, true);
-    }
-
-    private void CloseModal()
-    {
-        this.DismissViewControllerAsync(true);
+        await this.DismissViewControllerAsync(true);
     }
 
     private void SidebarOnOnItemSelected(object? sender, SidebarSelectionEventArgs e)
     {
         e.Item.OnSelected?.Invoke();
-    }
-}
-
-public class BasicViewController : UIViewController
-{
-    public BasicViewController()
-    {
-        this.View!.AddSubview(new UILabel(View!.Frame)
-        {
-#if !TVOS
-            BackgroundColor = UIColor.SystemBackground,
-#endif
-            TextAlignment = UITextAlignment.Center,
-            Text = "Hello, Apple!",
-            AutoresizingMask = UIViewAutoresizing.All,
-        });
     }
 }

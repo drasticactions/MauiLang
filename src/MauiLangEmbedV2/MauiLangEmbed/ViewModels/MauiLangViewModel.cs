@@ -22,6 +22,7 @@ public class MauiLangViewModel : BaseViewModel
         this.Database = services.GetRequiredService<DatabaseService>();
         this.OpenAI = services.GetRequiredService<OpenAIService>();
         this.Settings = services.GetRequiredService<Settings>();
+        this.Database.SettingsChanged += this.Database_SettingsChanged;
     }
 
     /// <summary>
@@ -38,4 +39,9 @@ public class MauiLangViewModel : BaseViewModel
     /// Gets the settings.
     /// </summary>
     protected Settings Settings { get; }
+
+    private void Database_SettingsChanged(object? sender, UpdateSettingsEventArgs e)
+    {
+        this.RaiseCanExecuteChanged();
+    }
 }

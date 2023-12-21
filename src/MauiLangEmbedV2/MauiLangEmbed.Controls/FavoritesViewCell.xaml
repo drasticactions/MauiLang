@@ -22,7 +22,10 @@
                 <Label Text="{Binding TargetLanguage.Language}"/>
                 <Label x:Name="TranslatedTextLabel" Grid.Row="1" TextColor="{StaticResource PrimaryColorTranslation}" Text="{Binding TranslatedText}"/>
             </Grid>
-            <Label Grid.Row="3" Text="{Binding Date}" HorizontalOptions="End"/>
+            <Grid RowSpacing="3" RowDefinitions="Auto, Auto" Grid.Row="3">
+                <Label Text="{Binding Date}" HorizontalOptions="End"/>
+                <Button BackgroundColor="#EA5F54" TextColor="#831913" Grid.Row="1" HorizontalOptions="End" Clicked="Button_OnClicked" Text="X"/>
+            </Grid>
         </Grid>
     </Border>
 </xct:VirtualViewCell>
