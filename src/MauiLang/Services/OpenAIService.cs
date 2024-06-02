@@ -7,6 +7,7 @@ using Drastic.Services;
 using MauiLang.Models;
 using Microsoft.Extensions.Logging;
 using OpenAI_API;
+using OpenAI_API.Models;
 
 namespace MauiLang.Services;
 
@@ -42,6 +43,7 @@ public class OpenAIService
 
         var api = new OpenAI_API.OpenAIAPI(new APIAuthentication(this.settings.OpenAIToken));
         var chat = api.Chat.CreateConversation();
+        chat.Model = Model.GPT4_Omni;
         var language = this.settings.TargetLanguage ?? new MauiLangLanguage();
         var responseLanguage = this.settings.OutputResponseLanguage ?? new MauiLangLanguage();
         var langOutput = language.LanguageCode;

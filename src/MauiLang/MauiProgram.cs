@@ -67,7 +67,7 @@ public static class MauiProgram
         Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("EntryChange", (handler, view) =>
         {
             var centeredParagraphStyle = new UIKit.NSMutableParagraphStyle();
-            centeredParagraphStyle.Alignment = UIKit.UITextAlignment.Center;
+            centeredParagraphStyle.Alignment = UIKit.UITextAlignment.Left;
             var attributedPlaceholder = new Foundation.NSAttributedString(
                 view.Placeholder,
                 new UIKit.UIStringAttributes

@@ -1,0 +1,3 @@
+[submodule "external/openai"]
+	path = external/openai
+	url = git@github.com:drasticactions/OpenAI-API-dotnet.git
